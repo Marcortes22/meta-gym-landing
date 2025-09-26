@@ -1,0 +1,66 @@
+---
+import type { LogoProps } from '../../types';
+import { APP_CONFIG } from '../../constants';
+
+export interface Props extends LogoProps {}
+
+const { 
+  size = 'md', 
+  className = '', 
+  href = '/',
+  showBrandText = true,
+  showSubtext = false 
+} = Astro.props;
+
+// Configuración simplificada de tamaños
+const logoSizes = {
+  sm: 'w-8 h-7',
+  md: 'w-14 h-11', // Tamaños originales del diseño
+  lg: 'w-16 h-13',
+  xl: 'w-20 h-16'
+};
+---
+
+<a 
+  href={href}
+  class={`inline-flex items-center transition-opacity duration-200 hover:opacity-80 ${className}`}
+  aria-label={`${APP_CONFIG.name} - Inicio`}
+>
+  <div class="flex items-center gap-2">
+    <!-- Logo como imagen -->
+    <img
+      src={APP_CONFIG.logo.path}
+      alt={APP_CONFIG.logo.alt}
+      class={`${logoSizes[size]} object-contain transition-opacity duration-200`}
+      width={APP_CONFIG.logo.width}
+      height={APP_CONFIG.logo.height}
+    />
+    
+    <!-- Brand Text (condicional) -->
+    {showBrandText && (
+      <div class="flex flex-col">
+        <span class="text-white font-bold text-lg leading-tight">
+          {APP_CONFIG.name.slice(0, 4)}<span class="text-red-500">{APP_CONFIG.name.slice(4)}</span>
+        </span>
+        {showSubtext && (
+          <span class="text-gray-400 text-xs tracking-wide hidden sm:block">
+            {APP_CONFIG.tagline}
+          </span>
+        )}
+      </div>
+    )}
+  </div>
+</a>
+
+<style>
+  /* Animación sutil para el hover del logo */
+  a:hover img {
+    opacity: 0.8;
+  }
+  
+  /* Asegurar que las imágenes mantengan su aspect ratio */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+</style>

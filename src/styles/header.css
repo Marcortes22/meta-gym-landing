@@ -1,0 +1,103 @@
+
+/* Header usando Design System */
+.navbar-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 5rem;
+  background-color: var(--color-background);
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  z-index: var(--z-header);
+  font-family: var(--font-family-primary);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+
+.navbar {
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--space-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  flex-shrink: 0;
+}
+
+
+
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem; 
+}
+
+.cta-button {
+  background-color: var(--color-accent);
+  color: var(--color-foreground);
+  padding: 0.5rem 1.5rem; 
+  border-radius: var(--border-radius-full);
+  font-weight: 600;
+  font-size: 1rem; 
+  text-decoration: none;
+  transition: all var(--duration-normal) var(--easing-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6rem;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background-color: var(--color-destructive);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+
+/* Media queries usando variables del design system */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 var(--space-md);
+  }
+  
+  .nav-section {
+    gap: var(--space-md);
+  }
+  
+  .nav-links {
+    gap: 1.5rem; /* 24px - espaciado reducido en tablet */
+  }
+  
+  .cta-button {
+    padding: 0.5rem 1rem; /* Reducir padding en móvil */
+    font-size: 0.875rem; /* Tamaño reducido en móvil */
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* Estados de focus usando design system */
+.nav-link:focus,
+.cta-button:focus {
+  outline: var(--border-width-medium) solid var(--color-focus);
+  outline-offset: 2px;
+}

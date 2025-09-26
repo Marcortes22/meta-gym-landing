@@ -1,22 +1,72 @@
+---
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  headerTransparent?: boolean;
+}
+
+const { 
+  title = 'MetaGym - Tu Gimnasio del Futuro',
+  description = 'Entrena con la tecnología más avanzada. MetaGym combina fitness tradicional con realidad aumentada para una experiencia única.',
+  headerTransparent = false
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<!-- SEO Meta Tags -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content="gimnasio, fitness, realidad aumentada, entrenamiento, MetaGym" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		
+		<!-- Preload critical resources -->
+		<link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+		
+		<!-- Performance optimizations -->
+		<meta name="theme-color" content="#0a0a0a" />
+		<meta name="color-scheme" content="dark light" />
 	</head>
-	<body>
-		<slot />
+	<body class="min-h-screen bg-black text-white antialiased">
+		<!-- Header sticky -->
+		<Header transparent={headerTransparent} />
+		
+		<!-- Contenido principal -->
+		<main class="relative">
+			<slot />
+		</main>
+		
+		<!-- Script para smooth scrolling y optimizaciones -->
+		<script>
+			// Mejorar el rendimiento del scroll
+			if ('scrollBehavior' in document.documentElement.style) {
+				document.documentElement.style.scrollBehavior = 'smooth';
+			}
+			
+			// Optimización para dispositivos táctiles
+			if ('ontouchstart' in window) {
+				document.body.classList.add('touch-device');
+			}
+		</script>
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+

@@ -1,0 +1,90 @@
+---
+import type { MobileNavigationProps } from '../../types';
+
+export interface Props extends Omit<MobileNavigationProps, 'isOpen' | 'onToggle' | 'onClose'> {
+  items: Array<{
+    label: string;
+    href: string;
+  }>;
+}
+
+const { items, currentPath, className = '' } = Astro.props;
+---
+
+<div class={`md:hidden ${className}`}>
+  <!-- Botón hamburguesa -->
+  <button
+    type="button"
+    class="mobile-menu-button p-2 rounded-lg text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+    aria-label="Abrir menú de navegación"
+  >
+    <span class="sr-only">Abrir menú principal</span>
+    
+    <!-- Icono hamburguesa -->
+    <svg class="hamburger-icon w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+    
+    <!-- Icono cerrar -->
+    <svg class="close-icon w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Panel de menú móvil -->
+  <div
+    id="mobile-menu"
+    class="mobile-menu-panel absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-t border-gray-700 shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-40"
+  >
+    <nav class="px-4 py-6 space-y-4" aria-label="Navegación móvil">
+      {items.map((item) => (
+        <a
+          href={item.href}
+          class={`mobile-nav-link block py-3 px-4 rounded-lg transition-colors ${
+            currentPath === item.href 
+              ? 'bg-red-500 text-white' 
+              : 'text-white hover:bg-gray-800'
+          }`}
+          aria-current={currentPath === item.href ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</div>
+
+<style>
+  /* Estados del menú móvil */
+  .mobile-menu-panel.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Estados del botón hamburguesa */
+  .mobile-menu-button[aria-expanded="true"] .hamburger-icon {
+    display: none;
+  }
+  
+  .mobile-menu-button[aria-expanded="true"] .close-icon {
+    display: block;
+  }
+  
+  /* Estilos para los links del menú móvil */
+  .mobile-nav-link {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+</style>
+
+<script>
+  import { useMobileMenu } from '../../hooks/useMobileMenu';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = useMobileMenu();
+    mobileMenu.init();
+  });
+</script>

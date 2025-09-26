@@ -1,12 +1,101 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css'
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import CTAButton from '../components/ui/CTAButton.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+  title="MetaGym - Revoluciona tu Entrenamiento" 
+  description="Descubre el futuro del fitness con MetaGym. Tecnología de vanguardia, entrenamientos personalizados y resultados garantizados."
+  headerTransparent={true}
+>
+  <!-- Hero Section para probar el header -->
+  <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+    
+    <!-- Background decorativo -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+      <div class="absolute top-1/2 right-1/4 w-96 h-96 bg-green-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+        El Futuro del 
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-green-500">
+          Fitness
+        </span>
+        <br />
+        Está Aquí
+      </h1>
+      
+      <p class="text-lg sm:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+        Entrena con tecnología de realidad aumentada, planes personalizados con IA y métricas en tiempo real. 
+        MetaGym transforma tu experiencia de entrenamiento.
+      </p>
+      
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <CTAButton 
+          variant="primary" 
+          size="lg" 
+          href="/planes"
+          ariaLabel="Ver planes de entrenamiento"
+        >
+          Comenzar Entrenamiento
+        </CTAButton>
+        
+        <CTAButton 
+          variant="outline" 
+          size="lg" 
+          href="/funciones"
+          ariaLabel="Explorar funciones de MetaGym"
+        >
+          Explorar Funciones
+        </CTAButton>
+      </div>
+      
+      <!-- Estadísticas rápidas -->
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-green-500 mb-2">500+</div>
+          <div class="text-gray-400">Miembros Activos</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-red-500 mb-2">24/7</div>
+          <div class="text-gray-400">Acceso Total</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-green-500 mb-2">95%</div>
+          <div class="text-gray-400">Satisfacción</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección adicional para probar el scroll y header sticky -->
+  <section class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-8">
+          Tecnología que Marca la Diferencia
+        </h2>
+        <p class="text-lg text-gray-400 mb-12">
+          Nuestro header sticky se adapta mientras navegas, proporcionando una experiencia fluida y moderna.
+          Haz scroll para ver el efecto en acción.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+          <div class="p-6 bg-black rounded-xl border border-gray-700">
+            <h3 class="text-xl font-semibold text-white mb-4">Realidad Aumentada</h3>
+            <p class="text-gray-400">Entrena con guías visuales en 3D y retroalimentación inmediata.</p>
+          </div>
+          
+          <div class="p-6 bg-black rounded-xl border border-gray-700">
+            <h3 class="text-xl font-semibold text-white mb-4">IA Personal</h3>
+            <p class="text-gray-400">Planes de entrenamiento que se adaptan a tu progreso automáticamente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>

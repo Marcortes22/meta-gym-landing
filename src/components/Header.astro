@@ -1,0 +1,39 @@
+---
+import '../styles/header.css';
+import Logo from './ui/Logo.astro';
+import Navigation from './ui/Navigation.astro';
+import CTAButton from './ui/CTAButton.astro';
+import { PRIMARY_CTA } from '../constants';
+---
+
+<header class="navbar-container">
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    
+    <!-- Logo Component -->
+    <div class="logo-container">
+      <Logo size="md" showBrandText={false} />
+    </div>
+
+    <!-- Navegación y CTA -->
+    <div class="nav-section">
+      
+      <!-- Navigation Component -->
+      <Navigation className="nav-links" />
+
+      <!-- CTA Button Component -->
+      <CTAButton 
+        href={PRIMARY_CTA.href}
+        variant="primary"
+        size="md"
+        ariaLabel={PRIMARY_CTA.ariaLabel}
+        className="cta-button"
+      >
+        {PRIMARY_CTA.label}
+      </CTAButton>
+      
+    </div>
+  </nav>
+</header>
+
+
+

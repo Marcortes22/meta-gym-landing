@@ -1,0 +1,82 @@
+---
+import type { NavigationProps, NavItem } from '../../types';
+import { MAIN_NAVIGATION } from '../../constants';
+import MobileNavigation from './MobileNavigation.astro';
+
+export interface Props extends NavigationProps {}
+
+const { 
+  items = MAIN_NAVIGATION.items, 
+  className = '', 
+  currentPath = Astro.url.pathname 
+} = Astro.props;
+---
+
+<!-- Navegación de escritorio -->
+<nav class={`hidden md:flex items-center space-x-8 ${className}`} aria-label="Navegación principal">
+  {items.map((item: NavItem) => (
+    <a
+      href={item.href}
+      class={`nav-link ${currentPath === item.href ? 'active' : ''}`}
+      aria-current={currentPath === item.href ? 'page' : undefined}
+    >
+      {item.label}
+    </a>
+  ))}
+</nav>
+
+<!-- Navegación móvil -->
+<MobileNavigation items={items} currentPath={currentPath} />
+
+<style>
+  /* Estilos para la navegación de escritorio */
+  .nav-link {
+    color: var(--color-foreground);
+    font-weight: 500;
+    font-size: 1.25rem; /* Tamaño consistente con el diseño */
+    transition: all 0.2s ease;
+    position: relative;
+    text-decoration: none;
+  }
+  
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+  
+  /* Efecto hover - línea animada */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: width 0.2s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+  
+  .nav-link.active::after {
+    width: 100%;
+  }
+  
+  /* Media queries para tamaños consistentes */
+  @media (max-width: 768px) {
+    .nav-link {
+      font-size: 1.125rem; /* Reducir un poco en tablet */
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .nav-link {
+      font-size: 1rem; /* Tamaño base en móvil */
+    }
+  }
+</style>
