@@ -7,7 +7,7 @@
   height: 5rem;
   background-color: var(--color-background);
   border-bottom: var(--border-width-thin) solid var(--color-border);
-  z-index: var(--z-header);
+  z-index: 100;
   font-family: var(--font-family-primary);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -70,7 +70,7 @@
 
 
 /* Media queries usando variables del design system */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .navbar {
     padding: 0 var(--space-md);
   }
@@ -78,20 +78,18 @@
   .nav-section {
     gap: var(--space-md);
   }
-  
+}
+
+/* Breakpoints consistentes con Tailwind md:768px */
+@media (min-width: 768px) {
   .nav-links {
-    gap: 1.5rem; /* 24px - espaciado reducido en tablet */
-  }
-  
-  .cta-button {
-    padding: 0.5rem 1rem; /* Reducir padding en móvil */
-    font-size: 0.875rem; /* Tamaño reducido en móvil */
+    gap: 2rem; /* Espaciado normal en desktop */
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .nav-links {
-    display: none;
+    gap: 1.5rem; /* Espaciado reducido en móvil/tablet */
   }
 }
 

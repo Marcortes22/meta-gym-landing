@@ -6,9 +6,14 @@ export interface Props extends Omit<MobileNavigationProps, 'isOpen' | 'onToggle'
     label: string;
     href: string;
   }>;
+  ctaButton?: {
+    label: string;
+    href: string;
+    ariaLabel?: string;
+  };
 }
 
-const { items, currentPath, className = '' } = Astro.props;
+const { items, currentPath, className = '', ctaButton } = Astro.props;
 ---
 
 <div class={`md:hidden ${className}`}>
@@ -17,7 +22,7 @@ const { items, currentPath, className = '' } = Astro.props;
     type="button"
     class="mobile-menu-button p-2 rounded-lg text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
     aria-expanded="false"
-    aria-controls="mobile-menu"
+    aria-controls="mobile-menu-panel"
     aria-label="Abrir menú de navegación"
   >
     <span class="sr-only">Abrir menú principal</span>
@@ -33,35 +38,107 @@ const { items, currentPath, className = '' } = Astro.props;
     </svg>
   </button>
 
-  <!-- Panel de menú móvil -->
+  <!-- Panel de menú móvil - Se abre desde la derecha -->
   <div
-    id="mobile-menu"
-    class="mobile-menu-panel absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-t border-gray-700 shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-in-out z-40"
+    id="mobile-menu-panel"
+    class="mobile-menu-panel bg-black/95 backdrop-blur-md border-l border-gray-700 shadow-xl transform translate-x-full opacity-0 invisible transition-all duration-300 ease-in-out"
   >
-    <nav class="px-4 py-6 space-y-4" aria-label="Navegación móvil">
-      {items.map((item) => (
-        <a
-          href={item.href}
-          class={`mobile-nav-link block py-3 px-4 rounded-lg transition-colors ${
-            currentPath === item.href 
-              ? 'bg-red-500 text-white' 
-              : 'text-white hover:bg-gray-800'
-          }`}
-          aria-current={currentPath === item.href ? 'page' : undefined}
+    <div class="flex flex-col h-full">
+      <!-- Header del menú -->
+      <div class="flex items-center justify-between p-4 border-b border-gray-700">
+        <span class="text-white font-semibold">Menú</span>
+        <button 
+          type="button"
+          class="close-menu-button p-2 rounded-lg text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+          aria-label="Cerrar menú"
         >
-          {item.label}
-        </a>
-      ))}
-    </nav>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Links de navegación -->
+      <nav class="flex-1 px-4 py-6 space-y-2" aria-label="Navegación móvil">
+        {items.map((item) => (
+          <a
+            href={item.href}
+            class={`mobile-nav-link block py-3 px-4 rounded-lg transition-colors ${
+              currentPath === item.href 
+                ? 'bg-red-500 text-white' 
+                : 'text-white hover:bg-gray-800'
+            }`}
+            aria-current={currentPath === item.href ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      
+      <!-- CTA Button en el menú móvil -->
+      {ctaButton && (
+        <div class="p-4 border-t border-gray-700">
+          <a
+            href={ctaButton.href}
+            class="mobile-cta-button block w-full bg-red-500 text-white text-center py-3 px-4 rounded-lg font-semibold transition-colors hover:bg-red-600"
+            aria-label={ctaButton.ariaLabel}
+          >
+            {ctaButton.label}
+          </a>
+        </div>
+      )}
+    </div>
   </div>
+  
+  <!-- Overlay para cerrar el menú al hacer clic fuera -->
+  <div id="mobile-menu-overlay" class="mobile-overlay bg-black/50 opacity-0 invisible transition-all duration-300 ease-in-out"></div>
 </div>
 
 <style>
-  /* Estados del menú móvil */
+  /* Estados del menú móvil - slide desde la derecha */
+  .mobile-menu-panel {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    height: 100vh !important;
+    width: 320px !important;
+    max-width: 90vw !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    transform: translateX(100%) !important;
+  }
+  
   .mobile-menu-panel.show {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  .mobile-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9998 !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+  
+  .mobile-overlay.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Prevenir scroll del body cuando el menú está abierto */
+  body.menu-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
   }
   
   /* Estados del botón hamburguesa */
@@ -77,6 +154,37 @@ const { items, currentPath, className = '' } = Astro.props;
   .mobile-nav-link {
     font-weight: 500;
     font-size: 1rem;
+  }
+  
+  /* Estilo del CTA en móvil */
+  .mobile-cta-button {
+    transition: all 0.2s ease;
+  }
+  
+  .mobile-cta-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+  
+  /* Forzar z-index máximo para el menú móvil */
+  .mobile-menu-panel,
+  .mobile-overlay {
+    position: fixed !important;
+  }
+  
+  /* Asegurar que el menú esté por encima de cualquier contenido */
+  .mobile-menu-panel * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Media query para asegurar que solo se muestre en móvil */
+  @media (min-width: 768px) {
+    .mobile-menu-button,
+    .mobile-menu-panel,
+    .mobile-overlay {
+      display: none !important;
+    }
   }
 </style>
 

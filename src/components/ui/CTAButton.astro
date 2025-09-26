@@ -1,6 +1,6 @@
 ---
 import type { CTAButtonProps } from '../../types';
-import { DESIGN_TOKENS } from '../../constants';
+
 
 export interface Props extends CTAButtonProps {}
 
@@ -16,7 +16,6 @@ const {
   onClick
 } = Astro.props;
 
-// Configuración simplificada usando clases CSS
 const variantStyles = {
   primary: 'btn-primary',
   secondary: 'btn-secondary', 
@@ -25,7 +24,6 @@ const variantStyles = {
   destructive: 'btn-destructive'
 };
 
-// Configuración de tamaños consistentes
 const sizeStyles = {
   xs: 'btn-xs',
   sm: 'btn-sm', 

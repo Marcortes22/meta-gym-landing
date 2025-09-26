@@ -3,12 +3,19 @@ import type { NavigationProps, NavItem } from '../../types';
 import { MAIN_NAVIGATION } from '../../constants';
 import MobileNavigation from './MobileNavigation.astro';
 
-export interface Props extends NavigationProps {}
+export interface Props extends NavigationProps {
+  ctaButton?: {
+    label: string;
+    href: string;
+    ariaLabel?: string;
+  };
+}
 
 const { 
   items = MAIN_NAVIGATION.items, 
   className = '', 
-  currentPath = Astro.url.pathname 
+  currentPath = Astro.url.pathname,
+  ctaButton 
 } = Astro.props;
 ---
 
@@ -26,7 +33,7 @@ const {
 </nav>
 
 <!-- Navegación móvil -->
-<MobileNavigation items={items} currentPath={currentPath} />
+<MobileNavigation items={items} currentPath={currentPath} ctaButton={ctaButton} />
 
 <style>
   /* Estilos para la navegación de escritorio */
@@ -68,15 +75,25 @@ const {
   }
   
   /* Media queries para tamaños consistentes */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
+    nav {
+      display: none !important; /* Asegurar que se oculte en móvil */
+    }
+  }
+
+  @media (min-width: 768px) {
+    nav {
+      display: flex !important; /* Asegurar que se muestre en desktop */
+    }
+    
     .nav-link {
-      font-size: 1.125rem; /* Reducir un poco en tablet */
+      font-size: 1.25rem; /* Tamaño completo en desktop */
     }
   }
   
-  @media (max-width: 640px) {
+  @media (max-width: 767px) {
     .nav-link {
-      font-size: 1rem; /* Tamaño base en móvil */
+      font-size: 1rem; /* Tamaño base en móvil (aunque esté oculto) */
     }
   }
 </style>

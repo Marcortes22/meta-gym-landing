@@ -17,16 +17,23 @@ import { PRIMARY_CTA } from '../constants';
     <!-- Navegación y CTA -->
     <div class="nav-section">
       
-      <!-- Navigation Component -->
-      <Navigation className="nav-links" />
+      <!-- Navigation Component con CTA button para móvil -->
+      <Navigation 
+        className="nav-links" 
+        ctaButton={{
+          label: PRIMARY_CTA.label,
+          href: PRIMARY_CTA.href,
+          ariaLabel: PRIMARY_CTA.ariaLabel
+        }}
+      />
 
-      <!-- CTA Button Component -->
+      <!-- CTA Button Component - Solo visible en desktop -->
       <CTAButton 
         href={PRIMARY_CTA.href}
         variant="primary"
         size="md"
         ariaLabel={PRIMARY_CTA.ariaLabel}
-        className="cta-button"
+        className="cta-button hidden md:inline-flex"
       >
         {PRIMARY_CTA.label}
       </CTAButton>
