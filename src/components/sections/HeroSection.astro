@@ -1,0 +1,291 @@
+---
+// ...existing code...
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-20">
+  <!-- Gradient Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+  
+  <!-- Animated Background Pattern -->
+  <div class="absolute inset-0 opacity-10" id="bg-pattern">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] bg-center"></div>
+  </div>
+  
+  <!-- Hero Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+      
+      <!-- Left Content -->
+      <div class="text-left space-y-8 order-1" id="hero-content">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.9]" id="hero-title">
+          <span class="block hero-line">Gestiona tu</span>
+          <span class="block hero-line">Gimnasio como un</span>
+          <span class="block hero-line">Profesional</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-gray-300 max-w-lg leading-relaxed" id="hero-description">
+          Software todo-en-uno para aumentar membresías, reducir cancelaciones y 
+          automatizar tu operación diaria.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4" id="hero-buttons">
+          <button class="hero-cta-primary" id="cta-primary">
+            Comenzar
+          </button>
+          <button class="hero-cta-secondary" id="cta-secondary">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+            </svg>
+            Ver Demo
+          </button>
+        </div>
+      </div>
+      
+      <!-- Right Image -->
+      <div class="relative order-2 lg:order-2" id="hero-image">
+        <div class="relative z-10" id="main-image">
+          <img 
+            src="/src/assets/anastase-maragos-9dzWZQWZMdE-unsplash 1.png"
+            alt="Atleta entrenando" 
+            class="w-full h-auto max-w-md lg:max-w-lg xl:max-w-xl mx-auto rounded-2xl shadow-2xl object-cover"
+          />
+        </div>
+        
+        <!-- Floating Cards -->
+        <div class="floating-card top-10 -left-6" id="stat-card-1">
+          <div class="bg-black/80 backdrop-blur-sm rounded-xl p-3 text-white border border-white/10 text-center">
+            <div class="text-xl font-bold text-red-500">+245%</div>
+            <div class="text-xs text-gray-300">Crecimiento</div>
+          </div>
+        </div>
+        
+        <div class="floating-card bottom-16 -right-6" id="stat-card-2">
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 text-white border border-white/20 text-center">
+            <div class="text-xl font-bold text-green-400">98%</div>
+            <div class="text-xs text-gray-300">Satisfacción</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2" id="scroll-indicator">
+    <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+      <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-cta-primary {
+    background-color: #ef4444;
+    color: white;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    transition: all 0.3s;
+    transform: translateY(0);
+    border: none;
+    cursor: pointer;
+    min-width: 140px;
+  }
+  
+  .hero-cta-primary:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -12px rgba(239, 68, 68, 0.4);
+  }
+  
+  .hero-cta-secondary {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: white;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    transition: all 0.3s;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transform: translateY(0);
+    cursor: pointer;
+    min-width: 140px;
+  }
+  
+  .hero-cta-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .floating-card {
+    position: absolute;
+    display: block;
+    z-index: 20;
+    opacity: 0;
+  }
+  
+  .hero-line {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  
+  /* Asegurar que el contenido inicial sea visible */
+  #hero-description {
+    opacity: 0;
+  }
+  
+  #hero-buttons {
+    opacity: 0;
+  }
+  
+  #main-image {
+    opacity: 0;
+  }
+  
+  #scroll-indicator {
+    opacity: 0;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1023px) {
+    .floating-card {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-cta-primary, .hero-cta-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  
+  /* Fallback si GSAP no carga */
+  .no-js .hero-line {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .no-js #hero-description,
+  .no-js #hero-buttons,
+  .no-js #main-image,
+  .no-js #scroll-indicator {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  console.log("usando GSAP: ", gsap.version);
+  
+  // Registrar ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Asegurar que DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    // Timeline principal con delay inicial
+    const tl = gsap.timeline({ delay: 0.2 });
+    
+    // Animaciones de entrada
+    tl.to(".hero-line", {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power3.out"
+    })
+    .to("#hero-description", {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power2.out"
+    }, "-=0.3")
+    .to("#hero-buttons", {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power2.out"
+    }, "-=0.2")
+    .to("#main-image", {
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      ease: "power2.out"
+    }, "-=0.6")
+    .to("#stat-card-1", {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      duration: 0.6,
+      ease: "back.out(1.7)"
+    }, "-=0.3")
+    .to("#stat-card-2", {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      duration: 0.6,
+      ease: "back.out(1.7)"
+    }, "-=0.4")
+    .to("#scroll-indicator", {
+      opacity: 1,
+      duration: 0.4
+    }, "-=0.2");
+    
+    // Animaciones de hover para botones
+    const buttons = document.querySelectorAll('.hero-cta-primary, .hero-cta-secondary');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        gsap.to(button, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
+    
+    // Floating animation para las cards
+    gsap.to("#stat-card-1", {
+      y: -8,
+      duration: 2,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1
+    });
+    
+    gsap.to("#stat-card-2", {
+      y: 8,
+      duration: 2.5,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+      delay: 0.5
+    });
+    
+    // Parallax effect para el background
+    gsap.to("#bg-pattern", {
+      y: -50,
+      scrollTrigger: {
+        trigger: "section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+  });
+</script>
