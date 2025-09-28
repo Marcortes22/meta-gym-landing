@@ -1,0 +1,49 @@
+{
+  "header": {
+    "title": "Resultados que",
+    "titleHighlight": "Impulsan tu Gimnasio",
+    "description": "Automatiza tu operación, maximiza la retención de miembros y convierte tu gimnasio en un negocio altamente rentable."
+  },
+  "benefits": [
+    {
+      "id": 1,
+      "title": "Aumenta Retención 35%",
+      "description": "Sistema automático de alertas de vencimiento, check-ins inteligentes y app para miembros que reduce cancelaciones significativamente.",
+      "iconPath": "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+    },
+    {
+      "id": 2,
+      "title": "Elimina 20h Administrativas",
+      "description": "Automatiza control de pagos, check-ins, reportes y notificaciones. Dedícate a hacer crecer tu negocio, no a la burocracia.",
+      "iconPath": "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+    },
+    {
+      "id": 3,
+      "title": "Optimiza Operación Diaria",
+      "description": "Control de acceso en tiempo real, gestión de instructores, horarios inteligentes y analytics que te muestran qué funciona.",
+      "iconPath": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+    }
+  ],
+  "stats": [
+    {
+      "id": 1,
+      "value": "35%",
+      "label": "+ Retención"
+    },
+    {
+      "id": 2,
+      "value": "67%",
+      "label": "Menos cancelaciones"
+    },
+    {
+      "id": 3,
+      "value": "20h",
+      "label": "Ahorro semanal"
+    },
+    {
+      "id": 4,
+      "value": "850+",
+      "label": "Gimnasios activos"
+    }
+  ]
+}

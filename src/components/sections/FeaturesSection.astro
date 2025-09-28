@@ -1,0 +1,210 @@
+
+---
+import featuresData from '../../data/features.json';
+---
+
+<section class="relative py-20 lg:py-32 overflow-hidden" id="funciones" style="background-color: #0a0a0a;">
+
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0 bg-center features-pattern"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style="color: #fefefe;">
+        {featuresData.header.title}
+        <span class="block" style="color: #ef4444;">{featuresData.header.titleHighlight}</span>
+      </h2>
+      <p class="text-xl max-w-3xl mx-auto" style="color: #d4d4d4;">
+        {featuresData.header.description}
+      </p>
+    </div>
+
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {featuresData.features.map((feature) => (
+        <div class="feature-card group">
+          <div class="feature-icon mb-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 feature-icon-container" style="background-color: rgba(239, 68, 68, 0.1);">
+              <svg class="w-8 h-8" style="color: #ef4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.iconPath} />
+              </svg>
+            </div>
+          </div>
+          <div class="feature-content">
+            <h3 class="text-xl font-bold mb-3 transition-colors duration-300" style="color: #fefefe;">
+              {feature.title}
+            </h3>
+            <p class="text-sm leading-relaxed transition-colors duration-300" style="color: #a3a3a3;">
+              {feature.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features-pattern {
+    background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ef4444" fill-opacity="0.1"><circle cx="30" cy="30" r="2"/></g></g></svg>');
+  }
+  
+  .feature-card {
+    position: relative;
+    padding: 2rem;
+    background: #141414;
+    backdrop-filter: blur(8px);
+    border-radius: 1.5rem;
+    border: 1px solid #262626;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), transparent, rgba(239, 68, 68, 0.1));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-4px);
+    background: #1a1a1a;
+    border-color: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 12px 24px -8px rgba(239, 68, 68, 0.15);
+  }
+  
+  .feature-card:hover::after {
+    opacity: 0.6;
+  }
+  
+  .feature-card:hover h3 {
+    color: #ef4444 !important;
+  }
+  
+  .feature-card:hover p {
+    color: #d4d4d4 !important;
+  }
+  
+  .feature-icon-container {
+    position: relative;
+  }
+  
+  .feature-icon-container::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), transparent, rgba(239, 68, 68, 0.2));
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: -1;
+  }
+  
+  .feature-card:hover .feature-icon-container::before {
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+ 
+    gsap.fromTo(".feature-card", {
+      y: 30,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      ease: "power2.out",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: ".feature-card",
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+
+    gsap.fromTo(".feature-icon-container", {
+      scale: 0.8,
+      opacity: 0
+    }, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.4,
+      ease: "back.out(1.7)",
+      stagger: 0.05,
+      delay: 0.2,
+      scrollTrigger: {
+        trigger: ".feature-card",
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+
+    document.querySelectorAll('.feature-card').forEach(card => {
+      const icon = card.querySelector('.feature-icon svg');
+      const iconContainer = card.querySelector('.feature-icon-container');
+      
+      card.addEventListener('mouseenter', () => {
+
+        gsap.to(icon, {
+          scale: 1.08,
+          y: -2,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+        
+
+        gsap.to(iconContainer, {
+          scale: 1.02,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        gsap.to(icon, {
+          scale: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+        
+        gsap.to(iconContainer, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
+
+    gsap.to(".feature-icon svg", {
+      scale: 1.02,
+      duration: 2,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+      stagger: {
+        amount: 1,
+        from: "random"
+      }
+    });
+  });
+</script>

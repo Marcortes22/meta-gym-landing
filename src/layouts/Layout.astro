@@ -1,15 +1,26 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+---
+export interface Props {
+  title?: string;
+}
+const { title = "Meta Gym - Sistema de Gestión para Gimnasios" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <meta http-equiv="content-language" content="es">
+  <meta name="language" content="Spanish">
+  
+  <title>{title}</title>
+  <meta name="generator" content={Astro.generator} />
+  <link rel="icon" type="image/svg+xml" href="/src//assets/ChatGPT_Image_26_sept_2025__01_38_34-removebg-preview.png" />
+</head>
+<body>
+  <slot />
+</body>
 </html>
 
 <style>

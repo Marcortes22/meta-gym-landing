@@ -1,0 +1,191 @@
+---
+import problemsData from '../../data/problems.json';
+---
+
+<section class="relative py-20 lg:py-32 bg-black overflow-hidden" id="problemas">
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0 bg-center problems-pattern"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        {problemsData.header.title}
+        <span class="text-red-500 block">{problemsData.header.titleHighlight}</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        {problemsData.header.description}
+      </p>
+    </div>
+
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+      {problemsData.problems.map((problem) => (
+        <div class="problem-card group">
+          <!-- Icon -->
+          <div class="problem-icon mb-6">
+            <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
+              <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d={problem.iconPath} />
+              </svg>
+            </div>
+          </div>
+
+
+          <div class="problem-content">
+            <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
+              {problem.title}
+            </h3>
+            <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+              {problem.description}
+            </p>
+          </div>
+
+    
+          <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
+        </div>
+      ))}
+    </div>
+
+
+    <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="600">
+      <p class="text-2xl font-semibold text-white mb-6">
+        ¿Te suenan familiares estos problemas?
+      </p>
+      <button class="cta-button group">
+        <span>Descubre la Solución</span>
+        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .problems-pattern {
+    background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%23ef4444" fill-opacity="0.1"><path d="M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z"/></g></svg>');
+  }
+  
+  .problem-card {
+    position: relative;
+    padding: 2rem;
+    background-color: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 1rem;
+    border: 1px solid rgb(31, 41, 55);
+    transition: all 0.3s ease;
+  }
+  
+  .problem-card:hover {
+    background-color: rgba(17, 24, 39, 0.7);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ef4444, transparent);
+    border-radius: 12px 12px 0 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .problem-card:hover::before {
+    opacity: 1;
+  }
+  
+  .cta-button {
+    position: relative;
+    background-color: #ef4444;
+    color: white;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4);
+  }
+  
+  .cta-button:hover {
+    background-color: #dc2626;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px rgba(239, 68, 68, 0.6);
+  }
+  
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    padding: 2px;
+    background: linear-gradient(45deg, #ef4444, #dc2626, #ef4444);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .cta-button:hover::before {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    gsap.fromTo(".problem-card", {
+      y: 60,
+      opacity: 0,
+      scale: 0.95
+    }, {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: ".problem-card",
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+   
+    document.querySelectorAll('.problem-card').forEach(card => {
+      const icon = card.querySelector('.problem-icon svg');
+      
+      card.addEventListener('mouseenter', () => {
+        gsap.to(icon, {
+          scale: 1.1,
+          rotate: 5,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        gsap.to(icon, {
+          scale: 1,
+          rotate: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
+  });
+</script>
