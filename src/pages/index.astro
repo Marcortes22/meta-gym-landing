@@ -1,14 +1,22 @@
 ---
-
+import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
+import BenefitsSection from '../components/sections/BenefitsSection.astro';
+import FeaturesSection from '../components/sections/FeaturesSection.astro';
 import HeroSection from '../components/sections/HeroSection.astro';
+import PricingSection from '../components/sections/PricingSection.astro';
+import ProblemsSection from '../components/sections/ProblemsSection.astro';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
 
 <Layout>
-<Header sticky/>
-<HeroSection/>
-
+  <Header sticky/>
+  <HeroSection/>
+  <ProblemsSection/>
+  <BenefitsSection/>
+  <FeaturesSection/>
+  <PricingSection/>
+   <Footer/>
 </Layout>

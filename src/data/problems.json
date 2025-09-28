@@ -1,0 +1,34 @@
+{
+  "problems": [
+    {
+      "title": "Miembros que se van sin avisar",
+      "description": "Weight loss can have causes that aren't due to underlying disease. Examples include dieting, exercise, or decreased food intake.",
+      "iconPath": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+    },
+    {
+      "title": "Classic Yoga",
+      "description": "The term 'Yoga' in the Western world often denotes a modern form of Hatha Yoga and yoga as exercise, consisting largely of physical postures.",
+      "iconPath": "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+    },
+    {
+      "title": "Cycling",
+      "description": "Cycling, also, when on a two-wheeled bicycle, called bicycling or biking, is the use of cycles for transport, recreation, exercise or sport.",
+      "iconPath": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+    },
+    {
+      "title": "No sabes qué está funcionando realmente",
+      "description": "Bodybuilding is the use of progressive resistance exercise to control and develop one's muscles for aesthetic purposes.",
+      "iconPath": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+    },
+    {
+      "title": "Musculation",
+      "description": "Weight training is a common type of strength training for developing the strength and size of skeletal muscles and maintenance of strength.",
+      "iconPath": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+    },
+    {
+      "title": "Fitness Running",
+      "description": "Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot.",
+      "iconPath": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+    }
+  ]
+}

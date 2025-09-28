@@ -1,0 +1,405 @@
+---
+// src/components/sections/PricingSection.astro
+---
+
+<section class="relative py-20 lg:py-32 overflow-hidden" id="pricing" style="background-color: #141414;">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2322c55e" fill-opacity="0.1"%3E%3Cpath d="M40 40L20 20h40v40z"/%3E%3C/g%3E%3C/svg%3E')] bg-center"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style="color: #fefefe;">
+        Planes que se Adaptan
+        <span class="block" style="color: #22c55e;">a tu Gimnasio</span>
+      </h2>
+      <p class="text-xl max-w-3xl mx-auto" style="color: #d4d4d4;">
+        Elige el plan perfecto para tu negocio. Comienza gratis y escala según crezcas.
+      </p>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      
+      <!-- Plan Básico -->
+      <div class="pricing-card group">
+        <div class="pricing-header">
+          <div class="plan-badge" style="background-color: #262626;">
+            <span class="text-sm font-medium" style="color: #d4d4d4;">Básico</span>
+          </div>
+          <div class="plan-price">
+            <span class="price-currency" style="color: #a3a3a3;">$</span>
+            <span class="price-amount" style="color: #fefefe;">29</span>
+            <span class="price-period" style="color: #a3a3a3;">/mes</span>
+          </div>
+          <p class="text-sm mt-2" style="color: #a3a3a3;">Perfecto para empezar</p>
+        </div>
+        
+        <div class="pricing-features">
+          <ul class="space-y-4">
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Hasta 100 miembros
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Gestión básica de pagos
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Reportes simples
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Soporte por email
+            </li>
+          </ul>
+        </div>
+        
+        <div class="pricing-cta">
+          <button class="cta-basic">
+            Comenzar Gratis
+          </button>
+        </div>
+      </div>
+
+      <!-- Plan Pro (Destacado) -->
+      <div class="pricing-card pricing-card-featured group">
+        <div class="featured-badge">
+          <span>Más Popular</span>
+        </div>
+        
+        <div class="pricing-header">
+          <div class="plan-badge" style="background-color: rgba(34, 197, 94, 0.2);">
+            <span class="text-sm font-medium" style="color: #22c55e;">Pro</span>
+          </div>
+          <div class="plan-price">
+            <span class="price-currency" style="color: #a3a3a3;">$</span>
+            <span class="price-amount" style="color: #fefefe;">79</span>
+            <span class="price-period" style="color: #a3a3a3;">/mes</span>
+          </div>
+          <p class="text-sm mt-2" style="color: #a3a3a3;">El más elegido</p>
+        </div>
+        
+        <div class="pricing-features">
+          <ul class="space-y-4">
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Hasta 500 miembros
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Pagos automáticos
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Analytics avanzados
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              App móvil incluida
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Marketing automation
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Soporte prioritario
+            </li>
+          </ul>
+        </div>
+        
+        <div class="pricing-cta">
+          <button class="cta-pro">
+            Empezar Prueba
+          </button>
+        </div>
+      </div>
+
+      <!-- Plan Enterprise -->
+      <div class="pricing-card group">
+        <div class="pricing-header">
+          <div class="plan-badge" style="background-color: rgba(239, 68, 68, 0.2);">
+            <span class="text-sm font-medium" style="color: #ef4444;">Enterprise</span>
+          </div>
+          <div class="plan-price">
+            <span class="price-currency" style="color: #a3a3a3;">$</span>
+            <span class="price-amount" style="color: #fefefe;">199</span>
+            <span class="price-period" style="color: #a3a3a3;">/mes</span>
+          </div>
+          <p class="text-sm mt-2" style="color: #a3a3a3;">Para grandes gimnasios</p>
+        </div>
+        
+        <div class="pricing-features">
+          <ul class="space-y-4">
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Miembros ilimitados
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Multi-sucursales
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              API personalizada
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Integración custom
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Manager dedicado
+            </li>
+          </ul>
+        </div>
+        
+        <div class="pricing-cta">
+          <button class="cta-enterprise">
+            Contactar Ventas
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust Section -->
+    <div class="text-center mt-16">
+      <p class="mb-6" style="color: #a3a3a3;">Garantía de reembolso de 30 días • Sin contratos • Cancela cuando quieras</p>
+      <div class="flex justify-center items-center space-x-8 opacity-60">
+        <span class="text-sm" style="color: #a3a3a3;">Usado por 500+ gimnasios</span>
+        <span class="w-1 h-1 rounded-full" style="background-color: #a3a3a3;"></span>
+        <span class="text-sm" style="color: #a3a3a3;">98% satisfacción</span>
+        <span class="w-1 h-1 rounded-full" style="background-color: #a3a3a3;"></span>
+        <span class="text-sm" style="color: #a3a3a3;">Soporte 24/7</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing-card {
+    position: relative;
+    background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    backdrop-filter: blur(12px);
+    border-radius: 2rem;
+    border: 1px solid #262626;
+    padding: 2.5rem;
+    transition: all 0.4s ease;
+    overflow: hidden;
+  }
+  
+  .pricing-card-featured {
+    border: 2px solid #22c55e;
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #1a1a1a, #141414);
+  }
+  
+  .pricing-card:hover {
+    transform: translateY(-12px);
+    border-color: #22c55e;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .pricing-card-featured:hover {
+    transform: scale(1.05) translateY(-12px);
+    box-shadow: 0 25px 50px -12px rgba(34, 197, 94, 0.3);
+  }
+  
+  .featured-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    color: #0a0a0a;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+  }
+  
+  .plan-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+  
+  .price-currency {
+    font-size: 1.25rem;
+    margin-right: 0.25rem;
+  }
+  
+  .price-amount {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+  
+  .price-period {
+    font-size: 1rem;
+    margin-left: 0.25rem;
+  }
+  
+  .pricing-features {
+    margin: 2rem 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    color: #d4d4d4;
+    font-size: 0.875rem;
+  }
+  
+  .feature-check {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+  
+  .cta-basic, .cta-enterprise {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #262626;
+    background: transparent;
+    color: #fefefe;
+    cursor: pointer;
+  }
+  
+  .cta-basic:hover, .cta-enterprise:hover {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    transform: translateY(-2px);
+  }
+  
+  .cta-pro {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    color: #0a0a0a;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+    cursor: pointer;
+  }
+  
+  .cta-pro:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.6);
+  }
+  
+  .pricing-cta {
+    margin-top: 2rem;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animación de entrada para las pricing cards
+    gsap.fromTo(".pricing-card", {
+      y: 100,
+      opacity: 0,
+      scale: 0.9
+    }, {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".pricing-card",
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Animación especial para la card destacada
+    gsap.fromTo(".pricing-card-featured", {
+      scale: 0.9
+    }, {
+      scale: 1.05,
+      duration: 1,
+      ease: "back.out(1.7)",
+      delay: 0.4,
+      scrollTrigger: {
+        trigger: ".pricing-card-featured",
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Animación de hover para botones CTA
+    document.querySelectorAll('.cta-basic, .cta-pro, .cta-enterprise').forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        gsap.to(button, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
+  });
+</script>
