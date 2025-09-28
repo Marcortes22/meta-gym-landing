@@ -1,6 +1,9 @@
 
+---
+// HeroSection component
+---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-20">
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-20">
 
   <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
   
@@ -141,10 +144,6 @@
     opacity: 0;
   }
   
-  #scroll-indicator {
-    opacity: 0;
-  }
-  
 
   @media (max-width: 1023px) {
     .floating-card {
@@ -167,8 +166,7 @@
   
   .no-js #hero-description,
   .no-js #hero-buttons,
-  .no-js #main-image,
-  .no-js #scroll-indicator {
+  .no-js #main-image {
     opacity: 1;
   }
 </style>
@@ -212,25 +210,7 @@
       scale: 1,
       duration: 0.8,
       ease: "power2.out"
-    }, "-=0.6")
-    .to("#stat-card-1", {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      duration: 0.6,
-      ease: "back.out(1.7)"
-    }, "-=0.3")
-    .to("#stat-card-2", {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      duration: 0.6,
-      ease: "back.out(1.7)"
-    }, "-=0.4")
-    .to("#scroll-indicator", {
-      opacity: 1,
-      duration: 0.4
-    }, "-=0.2");
+    }, "-=0.6");
     
 
     const buttons = document.querySelectorAll('.hero-cta-primary, .hero-cta-secondary');
@@ -253,21 +233,13 @@
     });
     
 
-    gsap.to("#stat-card-1", {
-      y: -8,
-      duration: 2,
+    // Animación sutil para la imagen principal
+    gsap.to("#main-image", {
+      y: -4,
+      duration: 3,
       ease: "sine.inOut",
       yoyo: true,
       repeat: -1
-    });
-    
-    gsap.to("#stat-card-2", {
-      y: 8,
-      duration: 2.5,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1,
-      delay: 0.5
     });
     
 

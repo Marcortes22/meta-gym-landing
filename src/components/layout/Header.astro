@@ -20,10 +20,19 @@ const { sticky = false } = Astro.props;
         <ul class="flex space-x-8">
           <li>
             <a 
-              href="#planes" 
+              href="#problemas" 
               class="relative text-white font-medium pb-1 transition-colors duration-300 hover:text-white group"
             >
-              Planes
+              Problemas
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#beneficios" 
+              class="relative text-white font-medium pb-1 transition-colors duration-300 hover:text-white group"
+            >
+              Beneficios
               <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
           </li>
@@ -36,11 +45,23 @@ const { sticky = false } = Astro.props;
               <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
           </li>
+          <li>
+            <a 
+              href="#planes" 
+              class="relative text-white font-medium pb-1 transition-colors duration-300 hover:text-white group"
+            >
+              Planes
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
         </ul>
         
-        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:translate-y-0">
+        <a 
+          href="#hero" 
+          class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
+        >
           Comenzar
-        </button>
+        </a>
       </div>
       
       <button 
@@ -74,10 +95,18 @@ const { sticky = false } = Astro.props;
         <ul class="space-y-4">
           <li>
             <a 
-              href="#planes" 
+              href="#problemas" 
               class="block text-white hover:text-gray-300 transition-colors duration-200 font-medium text-lg"
             >
-              Planes
+              Problemas
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#beneficios" 
+              class="block text-white hover:text-gray-300 transition-colors duration-200 font-medium text-lg"
+            >
+              Beneficios
             </a>
           </li>
           <li>
@@ -90,10 +119,10 @@ const { sticky = false } = Astro.props;
           </li>
           <li>
             <a 
-              href="#about" 
+              href="#planes" 
               class="block text-white hover:text-gray-300 transition-colors duration-200 font-medium text-lg"
             >
-              Acerca de
+              Planes
             </a>
           </li>
         </ul>
@@ -101,9 +130,12 @@ const { sticky = false } = Astro.props;
         <div class="border-t border-gray-700 my-8"></div>
 
         <div>
-          <button class="w-full bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-2 rounded-lg transition-all duration-200 text-lg">
+          <a 
+            href="#hero" 
+            class="block w-full text-center bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-2 rounded-lg transition-all duration-200 text-lg"
+          >
             Comenzar
-          </button>
+          </a>
         </div>
       </nav>
     </div>
@@ -153,6 +185,25 @@ const { sticky = false } = Astro.props;
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeMenu();
+    });
+
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetElement = targetId ? document.querySelector(targetId) : null;
+        
+        if (targetElement && targetElement instanceof HTMLElement) {
+          const headerHeight = 80; 
+          const elementPosition = targetElement.offsetTop - headerHeight;
+          
+          window.scrollTo({
+            top: elementPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
     });
   });
 </script>
