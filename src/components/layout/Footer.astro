@@ -3,17 +3,16 @@
 ---
 
 <footer class="relative py-20 overflow-hidden" style="background-color: #0a0a0a;">
-  <!-- Background Pattern -->
+  
   <div class="absolute inset-0 opacity-5">
     <div class="absolute inset-0 bg-center footer-pattern"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Main Footer Content -->
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
       
-      <!-- Company Info -->
+
       <div class="lg:col-span-1">
         <div class="flex items-center mb-6">
           <img 
@@ -28,7 +27,7 @@
           retén más miembros y automatiza tu operación diaria.
         </p>
         
-        <!-- Social Links -->
+
         <div class="flex space-x-4">
           <a 
             href="#" 
@@ -72,7 +71,7 @@
         </div>
       </div>
 
-      <!-- Product Links -->
+
       <div>
         <h4 class="text-lg font-semibold mb-6" style="color: #fefefe;">Producto</h4>
         <ul class="space-y-4">
@@ -94,7 +93,7 @@
         </ul>
       </div>
 
-      <!-- Resources -->
+
       <div>
         <h4 class="text-lg font-semibold mb-6" style="color: #fefefe;">Recursos</h4>
         <ul class="space-y-4">
@@ -116,7 +115,6 @@
         </ul>
       </div>
 
-      <!-- Support -->
       <div>
         <h4 class="text-lg font-semibold mb-6" style="color: #fefefe;">Soporte</h4>
         <ul class="space-y-4">
@@ -139,7 +137,7 @@
       </div>
     </div>
 
-    <!-- Newsletter Section -->
+
     <div class="border-t border-b py-12" style="border-color: #262626;">
       <div class="max-w-4xl mx-auto text-center">
         <h4 class="text-2xl font-bold mb-4" style="color: #fefefe;">
@@ -170,16 +168,16 @@
       </div>
     </div>
 
-    <!-- Bottom Footer -->
+
     <div class="pt-8">
       <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         
-        <!-- Copyright -->
+
         <div class="text-sm" style="color: #a3a3a3;">
           © 2024 Meta Gym. Todos los derechos reservados.
         </div>
 
-        <!-- Legal Links -->
+
         <div class="flex flex-wrap justify-center md:justify-end space-x-6 text-sm">
           <a href="#privacidad" class="footer-link">Política de Privacidad</a>
           <a href="#terminos" class="footer-link">Términos de Servicio</a>
@@ -187,7 +185,7 @@
         </div>
       </div>
 
-      <!-- Trust Badges -->
+ 
       <div class="flex flex-wrap justify-center items-center space-x-8 mt-8 pt-8 border-t" style="border-color: #262626;">
         <div class="flex items-center space-x-2 text-sm" style="color: #a3a3a3;">
           <svg class="w-4 h-4" style="color: #22c55e;" fill="currentColor" viewBox="0 0 20 20">
@@ -334,7 +332,7 @@
   
   document.addEventListener('DOMContentLoaded', () => {
     
-    // Animación de entrada del footer
+
     gsap.fromTo("footer > div > div", {
       y: 60,
       opacity: 0
@@ -362,7 +360,7 @@
       if (newsletterInput && newsletterButton) {
         const originalText = newsletterButton.innerHTML;
         
-        // Animación de envío
+
         newsletterButton.innerHTML = `
           <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -382,7 +380,6 @@
 
           (newsletterInput as HTMLInputElement).value = '';
 
-          // Volver al estado original después de 2 segundos
           setTimeout(() => {
             newsletterButton.innerHTML = originalText;
           }, 2000);

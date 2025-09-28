@@ -1,7 +1,7 @@
 
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-20">
-  <!-- Gradient Background -->
+
   <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
   
 
@@ -12,7 +12,7 @@
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
     <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
       
-      <!-- Left Content -->
+  
       <div class="text-left space-y-8 order-1" id="hero-content">
         <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.9]" id="hero-title">
           <span class="block hero-line">Gestiona tu</span>
@@ -38,12 +38,12 @@
         </div>
       </div>
       
-      <!-- Right Image -->
+
       <div class="relative order-2 lg:order-2" id="hero-image">
-        <!-- Success Glow Background -->
+ 
         <div class="absolute -inset-4 bg-gradient-to-r from-success/20 to-transparent blur-xl opacity-30 rounded-3xl"></div>
         
-        <!-- Success Border Ring -->
+  
         <div class="absolute -inset-1 bg-gradient-to-r from-success via-transparent to-success opacity-40 rounded-2xl blur-sm"></div>
         
         <div class="relative z-10" id="main-image">
@@ -128,7 +128,7 @@
     transform: translateY(50px);
   }
   
-  /* Asegurar que el contenido inicial sea visible */
+
   #hero-description {
     opacity: 0;
   }
@@ -145,7 +145,7 @@
     opacity: 0;
   }
   
-  /* Responsive adjustments */
+
   @media (max-width: 1023px) {
     .floating-card {
       display: none;
@@ -159,7 +159,7 @@
     }
   }
   
-  /* Fallback si GSAP no carga */
+
   .no-js .hero-line {
     opacity: 1;
     transform: translateY(0);
@@ -179,15 +179,15 @@
   
   console.log("usando GSAP: ", gsap.version);
   
-  // Registrar ScrollTrigger
+
   gsap.registerPlugin(ScrollTrigger);
   
-  // Asegurar que DOM esté listo
+
   document.addEventListener('DOMContentLoaded', () => {
-    // Timeline principal con delay inicial
+ 
     const tl = gsap.timeline({ delay: 0.2 });
     
-    // Animaciones de entrada
+
     tl.to(".hero-line", {
       y: 0,
       opacity: 1,
@@ -232,7 +232,7 @@
       duration: 0.4
     }, "-=0.2");
     
-    // Animaciones de hover para botones
+
     const buttons = document.querySelectorAll('.hero-cta-primary, .hero-cta-secondary');
     buttons.forEach(button => {
       button.addEventListener('mouseenter', () => {
@@ -252,7 +252,7 @@
       });
     });
     
-    // Floating animation para las cards
+
     gsap.to("#stat-card-1", {
       y: -8,
       duration: 2,
@@ -270,7 +270,7 @@
       delay: 0.5
     });
     
-    // Parallax effect para el background
+
     gsap.to("#bg-pattern", {
       y: -50,
       scrollTrigger: {

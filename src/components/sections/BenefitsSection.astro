@@ -5,13 +5,13 @@ import benefitsData from '../../data/benefits.json';
 ---
 
 <section class="relative py-20 lg:py-32 overflow-hidden" id="benefits" style="background-color: #080808;">
-  <!-- Background Pattern -->
+
   <div class="absolute inset-0 opacity-5">
     <div class="absolute inset-0 bg-center" style="background-image: url('data:image/svg+xml;utf8,<svg width=40 height=40 viewBox=0 0 40 40 xmlns=http://www.w3.org/2000/svg><g fill=%2322c55e fill-opacity=0.1><path d=M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z /></g></svg>');"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Header -->
+
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style="color: #fefefe;">
         {benefitsData.header.title}
@@ -22,7 +22,7 @@ import benefitsData from '../../data/benefits.json';
       </p>
     </div>
 
-    <!-- Benefits Grid -->
+
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
       {benefitsData.benefits.map((benefit) => (
         <div class="benefit-card group">
@@ -45,7 +45,7 @@ import benefitsData from '../../data/benefits.json';
       ))}
     </div>
 
-    <!-- Statistics Section -->
+
     <div class="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8">
       {benefitsData.stats.map((stat) => (
         <div class="text-center stats-item">
@@ -118,7 +118,7 @@ import benefitsData from '../../data/benefits.json';
   gsap.registerPlugin(ScrollTrigger);
   
   document.addEventListener('DOMContentLoaded', () => {
-    // Animación de entrada para las benefit cards
+
     gsap.fromTo(".benefit-card", {
       y: 80,
       opacity: 0,
@@ -137,7 +137,6 @@ import benefitsData from '../../data/benefits.json';
       }
     });
 
-    // Animación para las estadísticas
     gsap.to(".stats-item", {
       opacity: 1,
       y: 0,
