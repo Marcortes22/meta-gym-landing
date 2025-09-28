@@ -1,147 +1,52 @@
 ---
-// ...existing code...
-// src/components/sections/ProblemsSection.astro
+import problemsData from '../../data/problems.json';
 ---
 
 <section class="relative py-20 lg:py-32 bg-black overflow-hidden" id="problems">
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-5">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ef4444" fill-opacity="0.1"%3E%3Cpath d="M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z"/%3E%3C/g%3E%3C/svg%3E')] bg-center"></div>
+    <div class="absolute inset-0 bg-center problems-pattern"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="text-center mb-16" data-aos="fade-up">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-        Los Desafíos Diarios que
-        <span class="text-red-500 block">Enfrentas como Dueño</span>
+        {problemsData.header.title}
+        <span class="text-red-500 block">{problemsData.header.titleHighlight}</span>
       </h2>
       <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-        Sabemos exactamente lo que vives día a día. Estos problemas no tienen que ser tu realidad.
+        {problemsData.header.description}
       </p>
     </div>
 
     <!-- Problems Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-      <!-- Hardcoded cards por ahora -->
-      <div class="problem-card group">
-        <!-- Icon -->
-        <div class="problem-icon mb-6">
-          <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
-            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-            </svg>
+      {problemsData.problems.map((problem) => (
+        <div class="problem-card group">
+          <!-- Icon -->
+          <div class="problem-icon mb-6">
+            <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
+              <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d={problem.iconPath} />
+              </svg>
+            </div>
           </div>
-        </div>
 
-        <!-- Content -->
-        <div class="problem-content">
-          <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
-            Miembros que se van sin avisar
-          </h3>
-          <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-            Weight loss can have causes that aren't due to underlying disease. Examples include dieting, exercise, or decreased food intake.
-          </p>
-        </div>
-
-        <!-- Hover Border Effect -->
-        <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
-      </div>
-
-      <div class="problem-card group">
-        <div class="problem-icon mb-6">
-          <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
-            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
+          <!-- Content -->
+          <div class="problem-content">
+            <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
+              {problem.title}
+            </h3>
+            <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+              {problem.description}
+            </p>
           </div>
-        </div>
-        <div class="problem-content">
-          <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
-            Classic Yoga
-          </h3>
-          <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-            The term 'Yoga' in the Western world often denotes a modern form of Hatha Yoga and yoga as exercise.
-          </p>
-        </div>
-        <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
-      </div>
 
-      <div class="problem-card group">
-        <div class="problem-icon mb-6">
-          <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
-            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-            </svg>
-          </div>
+          <!-- Hover Border Effect -->
+          <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
         </div>
-        <div class="problem-content">
-          <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
-            Cycling
-          </h3>
-          <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-            Cycling, also, when on a two-wheeled bicycle, called bicycling or biking, is the use of cycles for transport.
-          </p>
-        </div>
-        <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
-      </div>
-
-      <div class="problem-card group">
-        <div class="problem-icon mb-6">
-          <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
-            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.835-7.551 12.015-7.551c7.733 0 11.985 7.551 11.985 7.551z" />
-            </svg>
-          </div>
-        </div>
-        <div class="problem-content">
-          <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
-            No sabes qué está funcionando realmente
-          </h3>
-          <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-            Bodybuilding is the use of progressive resistance exercise to control and develop one's muscles for aesthetic purposes.
-          </p>
-        </div>
-        <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
-      </div>
-
-      <div class="problem-card group">
-        <div class="problem-icon mb-6">
-          <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
-            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
-          </div>
-        </div>
-        <div class="problem-content">
-          <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
-            Musculation
-          </h3>
-          <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-            Weight training is a common type of strength training for developing the strength and size of skeletal muscles.
-          </p>
-        </div>
-        <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
-      </div>
-
-      <div class="problem-card group">
-        <div class="problem-icon mb-6">
-          <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
-            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.288 2.49-.38 3.5-.74 1.12-2.07 1.88-3.83 1.88z" />
-            </svg>
-          </div>
-        </div>
-        <div class="problem-content">
-          <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
-            Fitness Running
-          </h3>
-          <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-            Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot.
-          </p>
-        </div>
-        <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
-      </div>
+      ))}
     </div>
 
     <!-- Call to Action -->
@@ -160,6 +65,10 @@
 </section>
 
 <style>
+  .problems-pattern {
+    background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%23ef4444" fill-opacity="0.1"><path d="M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z"/></g></svg>');
+  }
+  
   .problem-card {
     position: relative;
     padding: 2rem;

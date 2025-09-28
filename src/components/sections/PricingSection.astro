@@ -2,10 +2,10 @@
 // src/components/sections/PricingSection.astro
 ---
 
-<section class="relative py-20 lg:py-32 overflow-hidden" id="pricing" style="background-color: #141414;">
+<section class="relative py-20 lg:py-32 overflow-hidden" id="pricing" style="background-color: #080808;">
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-5">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2322c55e" fill-opacity="0.1"%3E%3Cpath d="M40 40L20 20h40v40z"/%3E%3C/g%3E%3C/svg%3E')] bg-center"></div>
+    <div class="absolute inset-0 bg-center pricing-pattern"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -211,6 +211,10 @@
 </section>
 
 <style>
+  .pricing-pattern {
+    background-image: url('data:image/svg+xml,<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g fill="%2322c55e" fill-opacity="0.1"><path d="M40 40L20 20h40v40z"/></g></svg>');
+  }
+  
   .pricing-card {
     position: relative;
     background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
@@ -229,14 +233,14 @@
   }
   
   .pricing-card:hover {
-    transform: translateY(-12px);
-    border-color: #22c55e;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: translateY(-4px);
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.3);
   }
   
   .pricing-card-featured:hover {
-    transform: scale(1.05) translateY(-12px);
-    box-shadow: 0 25px 50px -12px rgba(34, 197, 94, 0.3);
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: 0 12px 24px -6px rgba(34, 197, 94, 0.15);
   }
   
   .featured-badge {
@@ -314,9 +318,9 @@
   
   .cta-basic:hover, .cta-enterprise:hover {
     border-color: #ef4444;
-    background: rgba(239, 68, 68, 0.1);
+    background: rgba(239, 68, 68, 0.05);
     color: #ef4444;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
   
   .cta-pro {
@@ -328,13 +332,13 @@
     color: #0a0a0a;
     border: none;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
     cursor: pointer;
   }
   
   .cta-pro:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
   }
   
   .pricing-cta {
@@ -351,44 +355,59 @@
   document.addEventListener('DOMContentLoaded', () => {
     // Animación de entrada para las pricing cards
     gsap.fromTo(".pricing-card", {
-      y: 100,
-      opacity: 0,
-      scale: 0.9
+      y: 40,
+      opacity: 0
     }, {
       y: 0,
       opacity: 1,
-      scale: 1,
-      duration: 0.8,
-      ease: "power3.out",
-      stagger: 0.2,
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: 0.15,
       scrollTrigger: {
         trigger: ".pricing-card",
-        start: "top 80%",
+        start: "top 85%",
         toggleActions: "play none none reverse"
       }
     });
 
-    // Animación especial para la card destacada
+    // Animación sutil para la card destacada
     gsap.fromTo(".pricing-card-featured", {
-      scale: 0.9
+      scale: 0.95
     }, {
       scale: 1.05,
-      duration: 1,
-      ease: "back.out(1.7)",
-      delay: 0.4,
+      duration: 0.6,
+      ease: "power2.out",
+      delay: 0.3,
       scrollTrigger: {
         trigger: ".pricing-card-featured",
-        start: "top 80%",
+        start: "top 85%",
         toggleActions: "play none none reverse"
       }
     });
 
-    // Animación de hover para botones CTA
+    // Animación suave para iconos de check
+    gsap.fromTo(".feature-check", {
+      scale: 0,
+      opacity: 0
+    }, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.4,
+      ease: "back.out(1.7)",
+      stagger: 0.05,
+      scrollTrigger: {
+        trigger: ".pricing-features",
+        start: "top 90%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Animación sutil de hover para botones CTA
     document.querySelectorAll('.cta-basic, .cta-pro, .cta-enterprise').forEach(button => {
       button.addEventListener('mouseenter', () => {
         gsap.to(button, {
-          scale: 1.05,
-          duration: 0.3,
+          scale: 1.02,
+          duration: 0.2,
           ease: "power2.out"
         });
       });
@@ -396,7 +415,7 @@
       button.addEventListener('mouseleave', () => {
         gsap.to(button, {
           scale: 1,
-          duration: 0.3,
+          duration: 0.2,
           ease: "power2.out"
         });
       });

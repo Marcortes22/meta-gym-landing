@@ -1,0 +1,49 @@
+{
+  "header": {
+    "title": "Beneficios que",
+    "titleHighlight": "Transformarán tu Negocio",
+    "description": "Descubre cómo nuestro software puede revolucionar la gestión de tu gimnasio y maximizar tus ganancias."
+  },
+  "benefits": [
+    {
+      "id": 1,
+      "title": "Aumenta Ingresos",
+      "description": "Incrementa tus ventas hasta en un 40% con herramientas de marketing automatizado y seguimiento de clientes.",
+      "iconPath": "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+    },
+    {
+      "id": 2,
+      "title": "Ahorra Tiempo",
+      "description": "Automatiza tareas repetitivas y reduce el tiempo administrativo en más de 15 horas semanales.",
+      "iconPath": "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+    },
+    {
+      "id": 3,
+      "title": "Retén Miembros",
+      "description": "Mejora la retención de clientes en un 60% con alertas tempranas y programas de fidelización.",
+      "iconPath": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+    }
+  ],
+  "stats": [
+    {
+      "id": 1,
+      "value": "98%",
+      "label": "Satisfacción"
+    },
+    {
+      "id": 2,
+      "value": "40%",
+      "label": "+ Ingresos"
+    },
+    {
+      "id": 3,
+      "value": "15h",
+      "label": "Menos trabajo"
+    },
+    {
+      "id": 4,
+      "value": "500+",
+      "label": "Gimnasios"
+    }
+  ]
+}

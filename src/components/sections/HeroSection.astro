@@ -6,7 +6,7 @@
   
 
   <div class="absolute inset-0 opacity-10" id="bg-pattern">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] bg-center"></div>
+    <div class="absolute inset-0 bg-center hero-pattern"></div>
   </div>
   
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -17,17 +17,17 @@
         <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.9]" id="hero-title">
           <span class="block hero-line">Gestiona tu</span>
           <span class="block hero-line">Gimnasio como un</span>
-          <span class="block hero-line">Profesional</span>
+          <span class="block hero-line text-success">Profesional</span>
         </h1>
         
-        <p class="text-lg md:text-xl text-gray-300 max-w-lg leading-relaxed" id="hero-description">
-          Software todo-en-uno para aumentar membresías, reducir cancelaciones y 
+        <p class="text-lg md:text-xl leading-relaxed max-w-lg" id="hero-description" style="color: #d4d4d4;">
+          Software todo-en-uno para <span class="text-success font-semibold">aumentar membresías</span>, reducir cancelaciones y 
           automatizar tu operación diaria.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4" id="hero-buttons">
           <button class="hero-cta-primary" id="cta-primary">
-            Comenzar
+            Comenzar Gratis
           </button>
           <button class="hero-cta-secondary" id="cta-secondary">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -40,25 +40,36 @@
       
       <!-- Right Image -->
       <div class="relative order-2 lg:order-2" id="hero-image">
+        <!-- Success Glow Background -->
+        <div class="absolute -inset-4 bg-gradient-to-r from-success/20 to-transparent blur-xl opacity-30 rounded-3xl"></div>
+        
+        <!-- Success Border Ring -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-success via-transparent to-success opacity-40 rounded-2xl blur-sm"></div>
+        
         <div class="relative z-10" id="main-image">
           <img 
             src="/src/assets/pexels-cottonbro-4761352.jpg"
             alt="Atleta entrenando" 
-            class="w-full h-auto max-w-md lg:max-w-lg xl:max-w-xl mx-auto rounded-2xl shadow-2xl object-cover"
+            class="w-full h-auto max-w-md lg:max-w-lg xl:max-w-xl mx-auto rounded-2xl shadow-2xl object-cover border border-success/20"
           />
         </div>
     </div>
   </div>
-  
-  <!-- Scroll Indicator -->
-  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2" id="scroll-indicator">
-    <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-      <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-    </div>
-  </div>
-</section>
+
 
 <style>
+  .hero-pattern {
+    background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="white" fill-opacity="0.1"><circle cx="30" cy="30" r="1"/></g></g></svg>');
+  }
+  
+  .text-success {
+    color: #22c55e;
+  }
+  
+  .bg-success {
+    background-color: #22c55e;
+  }
+  
   .hero-cta-primary {
     background-color: #ef4444;
     color: white;
@@ -97,9 +108,11 @@
   }
   
   .hero-cta-secondary:hover {
-    border-color: rgba(255, 255, 255, 0.4);
+    border-color: #22c55e;
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(34, 197, 94, 0.1);
+    box-shadow: 0 20px 40px -12px rgba(34, 197, 94, 0.2);
+    color: #22c55e;
   }
   
   .floating-card {

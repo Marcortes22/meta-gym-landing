@@ -1,100 +1,58 @@
 
-<section class="relative py-20 lg:py-32 overflow-hidden" id="benefits" style="background-color: #141414;">
+---
+// src/components/sections/BenefitsSection.astro
+import benefitsData from '../../data/benefits.json';
+---
+
+<section class="relative py-20 lg:py-32 overflow-hidden" id="benefits" style="background-color: #080808;">
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-5">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2322c55e" fill-opacity="0.1"%3E%3Cpath d="M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z"/%3E%3C/g%3E%3C/svg%3E')] bg-center"></div>
+    <div class="absolute inset-0 bg-center" style="background-image: url('data:image/svg+xml;utf8,<svg width=40 height=40 viewBox=0 0 40 40 xmlns=http://www.w3.org/2000/svg><g fill=%2322c55e fill-opacity=0.1><path d=M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z /></g></svg>');"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style="color: #fefefe;">
-        Beneficios que
-        <span class="block" style="color: #22c55e;">Transformarán tu Negocio</span>
+        {benefitsData.header.title}
+        <span class="block" style="color: #22c55e;">{benefitsData.header.titleHighlight}</span>
       </h2>
       <p class="text-xl max-w-3xl mx-auto" style="color: #d4d4d4;">
-        Descubre cómo nuestro software puede revolucionar la gestión de tu gimnasio y maximizar tus ganancias.
+        {benefitsData.header.description}
       </p>
     </div>
 
     <!-- Benefits Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-      <!-- Benefit 1 -->
-      <div class="benefit-card group">
-        <div class="benefit-icon mb-6">
-          <div class="w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300" style="background-color: rgba(34, 197, 94, 0.1);">
-            <svg class="w-10 h-10 transition-transform duration-300" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
+      {benefitsData.benefits.map((benefit) => (
+        <div class="benefit-card group">
+          <div class="benefit-icon mb-6">
+            <div class="w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300" style="background-color: rgba(34, 197, 94, 0.1);">
+              <svg class="w-10 h-10 transition-transform duration-300" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={benefit.iconPath} />
+              </svg>
+            </div>
+          </div>
+          <div class="benefit-content">
+            <h3 class="text-2xl font-bold mb-4 transition-colors duration-300" style="color: #fefefe;">
+              {benefit.title}
+            </h3>
+            <p class="leading-relaxed transition-colors duration-300" style="color: #a3a3a3;">
+              {benefit.description}
+            </p>
           </div>
         </div>
-        <div class="benefit-content">
-          <h3 class="text-2xl font-bold mb-4 transition-colors duration-300" style="color: #fefefe;">
-            Aumenta Ingresos
-          </h3>
-          <p class="leading-relaxed transition-colors duration-300" style="color: #a3a3a3;">
-            Incrementa tus ventas hasta en un 40% con herramientas de marketing automatizado y seguimiento de clientes.
-          </p>
-        </div>
-      </div>
-
-      <!-- Benefit 2 -->
-      <div class="benefit-card group">
-        <div class="benefit-icon mb-6">
-          <div class="w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300" style="background-color: rgba(34, 197, 94, 0.1);">
-            <svg class="w-10 h-10 transition-transform duration-300" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-        </div>
-        <div class="benefit-content">
-          <h3 class="text-2xl font-bold mb-4 transition-colors duration-300" style="color: #fefefe;">
-            Ahorra Tiempo
-          </h3>
-          <p class="leading-relaxed transition-colors duration-300" style="color: #a3a3a3;">
-            Automatiza tareas repetitivas y reduce el tiempo administrativo en más de 15 horas semanales.
-          </p>
-        </div>
-      </div>
-
-      <!-- Benefit 3 -->
-      <div class="benefit-card group">
-        <div class="benefit-icon mb-6">
-          <div class="w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-300" style="background-color: rgba(34, 197, 94, 0.1);">
-            <svg class="w-10 h-10 transition-transform duration-300" style="color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-        </div>
-        <div class="benefit-content">
-          <h3 class="text-2xl font-bold mb-4 transition-colors duration-300" style="color: #fefefe;">
-            Retén Miembros
-          </h3>
-          <p class="leading-relaxed transition-colors duration-300" style="color: #a3a3a3;">
-            Mejora la retención de clientes en un 60% con alertas tempranas y programas de fidelización.
-          </p>
-        </div>
-      </div>
+      ))}
     </div>
 
     <!-- Statistics Section -->
     <div class="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="text-center stats-item">
-        <div class="text-4xl lg:text-5xl font-bold mb-2" style="color: #22c55e;">98%</div>
-        <div class="text-sm lg:text-base" style="color: #d4d4d4;">Satisfacción</div>
-      </div>
-      <div class="text-center stats-item">
-        <div class="text-4xl lg:text-5xl font-bold mb-2" style="color: #22c55e;">40%</div>
-        <div class="text-sm lg:text-base" style="color: #d4d4d4;">+ Ingresos</div>
-      </div>
-      <div class="text-center stats-item">
-        <div class="text-4xl lg:text-5xl font-bold mb-2" style="color: #22c55e;">15h</div>
-        <div class="text-sm lg:text-base" style="color: #d4d4d4;">Menos trabajo</div>
-      </div>
-      <div class="text-center stats-item">
-        <div class="text-4xl lg:text-5xl font-bold mb-2" style="color: #22c55e;">500+</div>
-        <div class="text-sm lg:text-base" style="color: #d4d4d4;">Gimnasios</div>
-      </div>
+      {benefitsData.stats.map((stat) => (
+        <div class="text-center stats-item">
+          <div class="text-4xl lg:text-5xl font-bold mb-2" style="color: #22c55e;">{stat.value}</div>
+          <div class="text-sm lg:text-base" style="color: #d4d4d4;">{stat.label}</div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
