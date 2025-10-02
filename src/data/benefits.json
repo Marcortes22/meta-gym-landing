@@ -27,22 +27,22 @@
   "stats": [
     {
       "id": 1,
-      "value": "35%",
+      "value": "~35%",
       "label": "+ Retención"
     },
     {
       "id": 2,
-      "value": "67%",
+      "value": "~67%",
       "label": "Menos cancelaciones"
     },
     {
       "id": 3,
-      "value": "20h",
+      "value": "~20h",
       "label": "Ahorro semanal"
     },
     {
       "id": 4,
-      "value": "850+",
+      "value": "100",
       "label": "Gimnasios activos"
     }
   ]
