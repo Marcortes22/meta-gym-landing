@@ -325,43 +325,125 @@
       }
     });
 
-    // Newsletter form handling
+    // Newsletter form handling mejorado con API real
     const newsletterForm = document.getElementById('newsletter-form');
     const newsletterInput = newsletterForm?.querySelector('input[type="email"]');
     const newsletterButton = newsletterForm?.querySelector('button');
 
-    newsletterForm?.addEventListener('submit', (e) => {
+    newsletterForm?.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       if (newsletterInput && newsletterButton) {
+        const email = (newsletterInput as HTMLInputElement).value;
         const originalText = newsletterButton.innerHTML;
         
+        // Validación básica del lado del cliente
+        if (!email || !email.includes('@')) {
+          showMessage('Por favor ingresa un email válido', 'error');
+          return;
+        }
 
+        // UI Loading
         newsletterButton.innerHTML = `
           <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          Enviando...
+          Suscribiendo...
         `;
         
-        // Simular envío
-        setTimeout(() => {
+        try {
+          // Llamada real a la API
+          const response = await fetch('/api/newsletter', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Éxito
+            newsletterButton.innerHTML = `
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              ¡Suscrito!
+            `;
+            (newsletterInput as HTMLInputElement).value = '';
+            showMessage(result.message || '¡Gracias por suscribirte!', 'success');
+          } else {
+            throw new Error(result.error || 'Error al suscribirse');
+          }
+        } catch (error) {
+          console.error('Newsletter error:', error);
           newsletterButton.innerHTML = `
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
             </svg>
-            ¡Suscrito!
+            Error
           `;
-
-          (newsletterInput as HTMLInputElement).value = '';
-
-          setTimeout(() => {
-            newsletterButton.innerHTML = originalText;
-          }, 2000);
-        }, 1500);
+          const errorMessage = error instanceof Error ? error.message : 'Error al procesar la suscripción';
+          showMessage(errorMessage, 'error');
+        }
+        
+        // Volver al estado original después de 3 segundos
+        setTimeout(() => {
+          newsletterButton.innerHTML = originalText;
+        }, 3000);
       }
     });
+
+    // Función para mostrar mensajes
+    function showMessage(message: string, type: 'success' | 'error') {
+      // Remover mensaje anterior si existe
+      const existingMessage = document.querySelector('.newsletter-message');
+      if (existingMessage) {
+        existingMessage.remove();
+      }
+
+      // Crear nuevo mensaje
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `newsletter-message fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ${
+        type === 'success' 
+          ? 'bg-green-500 text-white' 
+          : 'bg-red-500 text-white'
+      }`;
+      messageDiv.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            ${type === 'success' 
+              ? '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />'
+              : '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />'
+            }
+          </svg>
+          <span>${message}</span>
+        </div>
+      `;
+
+      document.body.appendChild(messageDiv);
+
+      // Animar entrada
+      gsap.from(messageDiv, {
+        x: 100,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+
+      // Remover automáticamente después de 5 segundos
+      setTimeout(() => {
+        gsap.to(messageDiv, {
+          x: 100,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => messageDiv.remove()
+        });
+      }, 5000);
+    }
 
     // Hover animations para social links
     document.querySelectorAll('.social-link').forEach(link => {
