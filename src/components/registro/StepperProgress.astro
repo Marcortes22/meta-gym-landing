@@ -1,0 +1,182 @@
+---
+// src/components/registro/StepperProgress.astro
+interface Props {
+  currentStep: number;
+  totalSteps: number;
+  stepLabels: string[];
+}
+
+const { currentStep, totalSteps, stepLabels } = Astro.props;
+---
+
+<div class="stepper-container">
+  <div class="stepper-progress">
+    {stepLabels.map((label, index) => {
+      const stepNumber = index + 1;
+      const isCompleted = stepNumber < currentStep;
+      const isActive = stepNumber === currentStep;
+      const isUpcoming = stepNumber > currentStep;
+      
+      return (
+        <div class={`step ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''} ${isUpcoming ? 'upcoming' : ''}`}>
+          <div class="step-circle">
+            {isCompleted ? (
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            ) : (
+              <span class="step-number">{stepNumber}</span>
+            )}
+          </div>
+          <div class="step-label">
+            <span class="step-title">{label}</span>
+          </div>
+          {index < stepLabels.length - 1 && (
+            <div class="step-connector"></div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .stepper-container {
+    width: 100%;
+    padding: 2rem 0;
+  }
+  
+  .stepper-progress {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .step-circle {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .step.upcoming .step-circle {
+    background-color: #262626;
+    color: #a3a3a3;
+    border: 2px solid #404040;
+  }
+  
+  .step.active .step-circle {
+    background: linear-gradient(135deg, #e04a36, #fe6b24);
+    color: #ffffff;
+    border: 2px solid #fe6b24;
+    box-shadow: 0 0 0 4px rgba(254, 107, 36, 0.2);
+    animation: pulse 2s infinite;
+  }
+  
+  .step.completed .step-circle {
+    background: #22c55e;
+    color: #ffffff;
+    border: 2px solid #16a34a;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 4px rgba(254, 107, 36, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(254, 107, 36, 0.1);
+    }
+    100% {
+      box-shadow: 0 0 0 4px rgba(254, 107, 36, 0.2);
+    }
+  }
+  
+  .step-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  
+  .step-label {
+    text-align: center;
+    max-width: 100px;
+  }
+  
+  .step-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fefefe;
+    line-height: 1.2;
+  }
+  
+  .step.upcoming .step-title {
+    color: #a3a3a3;
+  }
+  
+  .step.active .step-title {
+    color: #fe6b24;
+  }
+  
+  .step.completed .step-title {
+    color: #22c55e;
+  }
+  
+  .step-connector {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: #404040;
+    z-index: 1;
+    transition: background-color 0.3s ease;
+  }
+  
+  .step.completed .step-connector {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+  }
+  
+  .step.active .step-connector {
+    background: linear-gradient(90deg, #fe6b24, #e04a36);
+  }
+  
+  /* Responsive */
+  @media (max-width: 640px) {
+    .step {
+      min-width: 80px;
+    }
+    
+    .step-circle {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .step-title {
+      font-size: 0.75rem;
+    }
+    
+    .step-connector {
+      top: 1.25rem;
+    }
+  }
+</style>

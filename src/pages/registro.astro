@@ -1,0 +1,675 @@
+---
+// src/pages/registro.astro
+import Layout from '../layouts/Layout.astro';
+import StepperProgress from '../components/registro/StepperProgress.astro';
+import Step1Gimnasio from '../components/registro/Step1Gimnasio.astro';
+import Step2Administrador from '../components/registro/Step2Administrador.astro';
+import Step3Membresia from '../components/registro/Step3Membresia.astro';
+import '../styles/global.css';
+---
+
+<Layout title="Registro - Meta Gym">
+  <main class="registro-page">
+    <!-- Header -->
+    <section class="registro-header">
+      <div class="container">
+        <div class="header-content">
+          <h1 class="main-title">
+            ¡Comienza tu <span class="text-gradient">Transformación Digital!</span>
+          </h1>
+          <p class="main-description">
+            Configura tu gimnasio en Meta Gym en menos de 5 minutos. 
+            Sin compromisos, sin setup complejo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stepper Progress -->
+    <section class="stepper-section">
+      <div class="container">
+        <StepperProgress 
+          currentStep={1} 
+          totalSteps={3} 
+          stepLabels={['Gimnasio', 'Administrador', 'Membresía']}
+        />
+      </div>
+    </section>
+
+    <!-- Steps Container -->
+    <section class="steps-section">
+      <div class="container">
+        
+        <!-- Step 1: Gimnasio -->
+        <div class="step-wrapper active" data-step="1">
+          <Step1Gimnasio />
+        </div>
+
+        <!-- Step 2: Administrador -->
+        <div class="step-wrapper" data-step="2">
+          <Step2Administrador />
+        </div>
+
+        <!-- Step 3: Membresía -->
+        <div class="step-wrapper" data-step="3">
+          <Step3Membresia />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <section class="navigation-section">
+      <div class="container">
+        <div class="navigation-buttons">
+          <button 
+            id="btn-anterior" 
+            class="btn btn-secondary" 
+            style="display: none;"
+          >
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Anterior
+          </button>
+
+          <button 
+            id="btn-siguiente" 
+            class="btn btn-primary"
+          >
+            Siguiente
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          <button 
+            id="btn-finalizar" 
+            class="btn btn-success" 
+            style="display: none;"
+          >
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Completar Registro
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-content">
+        <div class="success-icon">
+          <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h2 class="success-title">¡Registro Completado!</h2>
+        <p class="success-message">
+          Hemos enviado las instrucciones de pago a tu correo electrónico. 
+          Una vez confirmado el pago, activaremos tu cuenta de Meta Gym.
+        </p>
+        <div class="success-actions">
+          <button id="btn-modal-close" class="btn btn-primary">
+            Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</Layout>
+
+<style>
+  .registro-page {
+    min-height: 100vh;
+    background: #0e0e10;
+    padding-top: 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Header */
+  .registro-header {
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fefefe;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #e04a36, #fe6b24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .main-description {
+    font-size: 1.1rem;
+    color: #a3a3a3;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Stepper Section */
+  .stepper-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid #262626;
+  }
+
+  /* Steps Section */
+  .steps-section {
+    padding: 2rem 0;
+  }
+
+  .step-wrapper {
+    display: none;
+  }
+
+  .step-wrapper.active {
+    display: block;
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Navigation */
+  .navigation-section {
+    padding: 2rem 0 4rem;
+    border-top: 1px solid #262626;
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(90deg, #fe6b24, #e04a36);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(254, 107, 36, 0.4);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #a3a3a3;
+    border: 2px solid #404040;
+  }
+
+  .btn-secondary:hover {
+    color: #fefefe;
+    border-color: #666;
+  }
+
+  .btn-success {
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+    color: #ffffff;
+  }
+
+  .btn-success:hover {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    background: #1a1a1d;
+    border: 1px solid #262626;
+    border-radius: 16px;
+    padding: 3rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: #22c55e;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+  }
+
+  .success-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fefefe;
+    margin-bottom: 1rem;
+  }
+
+  .success-message {
+    color: #a3a3a3;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .success-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 2rem;
+    }
+
+    .main-description {
+      font-size: 1rem;
+    }
+
+    .modal-content {
+      padding: 2rem;
+      margin: 1rem;
+    }
+
+    .navigation-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+
+  // Estado global del stepper
+  let currentStep: number = 1;
+  let formData: {
+    gimnasio: Record<string, any>;
+    administrador: Record<string, any>;
+    membresia: {
+      plan_id?: string;
+      plan_name?: string;
+      plan_price?: number;
+    };
+  } = {
+    gimnasio: {},
+    administrador: {},
+    membresia: {}
+  };
+
+  // Elementos DOM con tipos correctos
+  const btnAnterior = document.getElementById('btn-anterior') as HTMLButtonElement | null;
+  const btnSiguiente = document.getElementById('btn-siguiente') as HTMLButtonElement | null;
+  const btnFinalizar = document.getElementById('btn-finalizar') as HTMLButtonElement | null;
+  const successModal = document.getElementById('success-modal') as HTMLElement | null;
+  const btnModalClose = document.getElementById('btn-modal-close') as HTMLElement | null;
+
+  // Inicializar la página
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadPlans();
+    updateNavigation();
+    setupEventListeners();
+  });
+
+  // Cargar planes desde API
+  async function loadPlans() {
+    const plansContainer = document.getElementById('plans-grid') as HTMLElement | null;
+    const loadingContainer = document.getElementById('plans-loading') as HTMLElement | null;
+    
+    try {
+      const response = await fetch('/api/planes');
+      const result = await response.json();
+      
+      if (result.success && result.data && result.data.length > 0) {
+        if (plansContainer) {
+          plansContainer.innerHTML = '';
+        }
+        
+        result.data.forEach((plan: any) => {
+          // Manejar features como array de PostgreSQL o string
+          let features: string[] = [];
+          if (plan.features) {
+            if (Array.isArray(plan.features)) {
+              features = plan.features;
+            } else if (typeof plan.features === 'string') {
+              // Si es string, intentar parsearlo o dividirlo por comas
+              try {
+                features = JSON.parse(plan.features);
+              } catch {
+                features = plan.features.includes(',') ? plan.features.split(',') : [plan.features];
+              }
+            }
+          }
+          
+          // Detectar si es el plan Pro para aplicar estilos especiales
+          const isPro = plan.name.toLowerCase().includes('pro');
+          const isEnterprise = plan.name.toLowerCase().includes('enterprise');
+          
+          const planCard = `
+            <div class="pricing-card ${isPro ? 'pricing-card-featured' : ''} plan-card" data-plan-id="${plan.id}" data-plan-name="${plan.name}" data-plan-price="${plan.price}">
+              ${isPro ? '<div class="featured-badge"><span>Más Popular</span></div>' : ''}
+              
+              <div class="pricing-header">
+                <div class="plan-badge" style="background-color: ${isPro ? 'rgba(254, 107, 36, 0.15)' : isEnterprise ? 'rgba(252, 252, 252, 0.15)' : '#1a1a1a'}; border: 1px solid ${isPro || isEnterprise ? '#fe6b24' : '#262626'};">
+                  <span class="badge-text" style="color: ${isPro || isEnterprise ? '#fe6b24' : '#d4d4d4'};">${plan.name}</span>
+                </div>
+                <div class="plan-price">
+                  <span class="price-currency">$</span>
+                  <span class="price-amount">${plan.price}</span>
+                  <span class="price-period">/mes</span>
+                </div>
+                <p class="plan-description">${plan.description || ''}</p>
+              </div>
+              
+              <div class="pricing-features">
+                <ul>
+                  <li class="feature-item">
+                    <svg class="feature-check" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Hasta ${plan.max_clients || 'Ilimitados'} miembros
+                  </li>
+                  ${features.map((feature: string) => `
+                    <li class="feature-item">
+                      <svg class="feature-check" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      ${feature.trim()}
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+              
+              <div class="pricing-cta">
+                <button class="${isPro ? 'cta-pro' : isEnterprise ? 'cta-enterprise' : 'cta-basic'} plan-select-btn" onclick="selectPlan('${plan.id}', '${plan.name}', ${plan.price})">
+                  ${isEnterprise ? 'Contactar Ventas' : 'Empezar ahora'}
+                </button>
+              </div>
+            </div>
+          `;
+          
+          if (plansContainer) {
+            plansContainer.innerHTML += planCard;
+          }
+        });
+        
+        if (loadingContainer) {
+          loadingContainer.style.display = 'none';
+        }
+        if (plansContainer) {
+          plansContainer.style.display = 'grid';
+        }
+      } else {
+        throw new Error(result.error || 'No se encontraron planes disponibles');
+      }
+    } catch (error) {
+      console.error('Error loading plans:', error);
+      if (loadingContainer) {
+        loadingContainer.innerHTML = '<p>Error cargando planes. Inténtalo de nuevo.</p>';
+      }
+    }
+  }
+
+  // Seleccionar plan
+  (window as any).selectPlan = function(planId: string, planName: string, planPrice: number) {
+    // Remover selección anterior
+    document.querySelectorAll('.plan-card').forEach(card => {
+      card.classList.remove('selected');
+    });
+    
+    // Seleccionar nuevo plan
+    const selectedCard = document.querySelector(`[data-plan-id="${planId}"]`) as HTMLElement;
+    selectedCard?.classList.add('selected');
+    
+    // Guardar datos
+    formData.membresia = { plan_id: planId, plan_name: planName, plan_price: planPrice };
+    
+    // Actualizar inputs ocultos con null checks
+    const planIdInput = document.getElementById('selected-plan-id') as HTMLInputElement;
+    const planNameInput = document.getElementById('selected-plan-name-input') as HTMLInputElement;
+    const planPriceInput = document.getElementById('selected-plan-price-input') as HTMLInputElement;
+    
+    if (planIdInput) planIdInput.value = planId;
+    if (planNameInput) planNameInput.value = planName;
+    if (planPriceInput) planPriceInput.value = planPrice.toString();
+    
+    // Mostrar resumen con null checks
+    const planNameDisplay = document.getElementById('selected-plan-name');
+    const planPriceDisplay = document.getElementById('selected-plan-price');
+    const planSummary = document.getElementById('plan-summary');
+    
+    if (planNameDisplay) planNameDisplay.textContent = planName;
+    if (planPriceDisplay) planPriceDisplay.textContent = `$${planPrice}/mes`;
+    if (planSummary) planSummary.style.display = 'block';
+    
+    updateNavigation();
+  };
+
+  // Event listeners
+  function setupEventListeners() {
+    btnSiguiente?.addEventListener('click', nextStep);
+    btnAnterior?.addEventListener('click', previousStep);
+    btnFinalizar?.addEventListener('click', submitForm);
+    btnModalClose?.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+  }
+
+  // Siguiente paso
+  function nextStep() {
+    if (validateCurrentStep()) {
+      saveCurrentStepData();
+      currentStep++;
+      showStep(currentStep);
+      updateNavigation();
+      updateStepperProgress();
+    }
+  }
+
+  // Paso anterior
+  function previousStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      showStep(currentStep);
+      updateNavigation();
+      updateStepperProgress();
+    }
+  }
+
+  // Mostrar paso
+  function showStep(step: number) {
+    document.querySelectorAll('.step-wrapper').forEach(wrapper => {
+      wrapper.classList.remove('active');
+    });
+    
+    const activeWrapper = document.querySelector(`[data-step="${step}"]`);
+    if (activeWrapper) {
+      activeWrapper.classList.add('active');
+    }
+  }
+
+  // Actualizar navegación
+  function updateNavigation() {
+    if (btnAnterior) {
+      btnAnterior.style.display = currentStep > 1 ? 'inline-flex' : 'none';
+    }
+    
+    if (btnSiguiente) {
+      btnSiguiente.style.display = currentStep < 3 ? 'inline-flex' : 'none';
+      btnSiguiente.disabled = !validateCurrentStep();
+    }
+    
+    if (btnFinalizar) {
+      btnFinalizar.style.display = currentStep === 3 ? 'inline-flex' : 'none';
+      btnFinalizar.disabled = !validateCurrentStep();
+    }
+  }
+
+  // Actualizar progreso del stepper
+  function updateStepperProgress() {
+    // Aquí deberías actualizar el componente StepperProgress
+    // Por simplicidad, lo manejo via CSS
+    document.documentElement.style.setProperty('--current-step', currentStep.toString());
+  }
+
+  // Validar paso actual
+  function validateCurrentStep(): boolean {
+    switch(currentStep) {
+      case 1:
+        const form1 = document.getElementById('form-gimnasio') as HTMLFormElement;
+        return form1 ? form1.checkValidity() : false;
+      case 2:
+        const form2 = document.getElementById('form-administrador') as HTMLFormElement;
+        return form2 ? form2.checkValidity() : false;
+      case 3:
+        return formData.membresia.plan_id !== undefined;
+      default:
+        return false;
+    }
+  }
+
+  // Guardar datos del paso actual
+  function saveCurrentStepData() {
+    switch(currentStep) {
+      case 1:
+        const form1Element = document.getElementById('form-gimnasio') as HTMLFormElement;
+        if (form1Element) {
+          const form1 = new FormData(form1Element);
+          formData.gimnasio = Object.fromEntries(form1);
+        }
+        break;
+      case 2:
+        const form2Element = document.getElementById('form-administrador') as HTMLFormElement;
+        if (form2Element) {
+          const form2 = new FormData(form2Element);
+          formData.administrador = Object.fromEntries(form2);
+        }
+        break;
+    }
+  }
+
+  // Enviar formulario
+  async function submitForm() {
+    if (!validateCurrentStep()) return;
+    
+    saveCurrentStepData();
+    
+    if (btnFinalizar) {
+      btnFinalizar.disabled = true;
+      btnFinalizar.innerHTML = `
+        <svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Procesando...
+      `;
+    }
+    
+    try {
+      console.log('Enviando datos de registro:', formData);
+      
+      // Enviar registro via API
+      const response = await fetch('/api/registro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Mostrar modal de éxito
+        if (successModal) {
+          successModal.style.display = 'flex';
+        }
+      } else {
+        throw new Error(result.error || 'Error desconocido');
+      }
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      alert('Hubo un error al procesar el registro. Inténtalo de nuevo.');
+      
+      if (btnFinalizar) {
+        btnFinalizar.disabled = false;
+        btnFinalizar.innerHTML = `
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Completar Registro
+        `;
+      }
+    }
+  }
+
+  // Trigger navigation update on form changes
+  document.addEventListener('input', () => {
+    setTimeout(updateNavigation, 100);
+  });
+</script>
+</Layout>

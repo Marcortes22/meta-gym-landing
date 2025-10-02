@@ -1,0 +1,590 @@
+---
+// src/components/registro/Step3Membresia.astro
+---
+
+<div class="step-container" id="step-3">
+  <div class="step-header">
+    <h2 class="step-title">Selecciona tu Membresía</h2>
+    <p class="step-description">
+      Elige el plan que mejor se adapte al tamaño y necesidades de tu gimnasio
+    </p>
+  </div>
+
+  <div class="plans-container">
+    <!-- Los planes se cargarán dinámicamente desde Supabase -->
+    <div id="plans-loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Cargando planes disponibles...</p>
+    </div>
+
+    <div id="plans-grid" class="plans-grid" style="display: none;">
+      <!-- Planes se insertan aquí via JavaScript -->
+    </div>
+  </div>
+
+  <!-- Resumen de selección -->
+  <div id="plan-summary" class="plan-summary" style="display: none;">
+    <div class="summary-card">
+      <h3 class="summary-title">Plan Seleccionado</h3>
+      <div class="summary-content">
+        <div class="summary-plan">
+          <span class="summary-plan-name" id="selected-plan-name">-</span>
+          <span class="summary-plan-price" id="selected-plan-price">$0</span>
+        </div>
+        <div class="summary-features" id="selected-plan-features">
+          <!-- Features se insertan aquí -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Información de pago -->
+  <div class="payment-info">
+    <div class="payment-card">
+      <div class="payment-header">
+        <div class="payment-icon">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
+        <h3 class="payment-title">¿Cómo funciona el pago?</h3>
+      </div>
+      <div class="payment-steps">
+        <div class="payment-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Registro Gratis</h4>
+            <p>Completa el registro sin costo alguno</p>
+          </div>
+        </div>
+        <div class="payment-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Confirmación</h4>
+            <p>Recibirás instrucciones de pago por email</p>
+          </div>
+        </div>
+        <div class="payment-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Activación</h4>
+            <p>Activamos tu cuenta tras confirmar el pago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden input para guardar la selección -->
+<input type="hidden" id="selected-plan-id" name="plan_id" value="">
+<input type="hidden" id="selected-plan-name-input" name="plan_name" value="">
+<input type="hidden" id="selected-plan-price-input" name="plan_price" value="">
+
+<style>
+  .step-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #0e0e10;
+    min-height: 100vh;
+  }
+  
+  .step-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .step-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fefefe;
+    margin-bottom: 1.5rem;
+  }
+  
+  .step-description {
+    font-size: 1.25rem;
+    color: #d4d4d4;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .loading-state {
+    text-align: center;
+    padding: 3rem;
+    color: #a3a3a3;
+  }
+  
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #404040;
+    border-top: 3px solid #fe6b24;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* CSS específico para Step3 con !important */
+  #step-3 .pricing-card {
+    position: relative !important;
+    background: linear-gradient(145deg, #141414, #0f0f0f) !important;
+    backdrop-filter: blur(12px) !important;
+    border-radius: 2rem !important;
+    border: 1px solid #1a1a1a !important;
+    padding: 2.5rem !important;
+    transition: all 0.4s ease !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    cursor: pointer !important;
+  }
+  
+  #step-3 .pricing-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: rgba(224, 74, 54, 0.4) !important;
+    box-shadow: 0 12px 32px rgba(224, 74, 54, 0.1) !important;
+    background: linear-gradient(145deg, #1a1a1a, #121212) !important;
+  }
+  
+  #step-3 .pricing-card-featured {
+    border: 2px solid #fe6b24 !important;
+    transform: scale(1.05) !important;
+    background: linear-gradient(145deg, #1a1a1a, #141414) !important;
+    box-shadow: 0 8px 32px rgba(254, 107, 36, 0.15) !important;
+  }
+  
+  #step-3 .pricing-card-featured:hover {
+    transform: scale(1.05) translateY(-4px) !important;
+    box-shadow: 0 16px 40px rgba(254, 107, 36, 0.2) !important;
+  }
+  
+  #step-3 .featured-badge {
+    position: absolute !important;
+    top: -1px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: linear-gradient(90deg, #e04a36, #fe6b24) !important;
+    color: #fefefe !important;
+    padding: 0.5rem 1.5rem !important;
+    border-radius: 0 0 1rem 1rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(224, 74, 54, 0.4) !important;
+  }
+  
+  /* Estado seleccionado */
+  .pricing-card.selected {
+    border: 2px solid #fe6b24;
+    transform: scale(1.02);
+    background: linear-gradient(145deg, #1a1a1a, #141414);
+    box-shadow: 0 8px 32px rgba(254, 107, 36, 0.15);
+  }
+  
+  .pricing-card.selected::before {
+    content: 'SELECCIONADO';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
+    color: #fefefe;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(224, 74, 54, 0.4);
+    z-index: 10;
+  }
+  
+  .pricing-card.selected:hover {
+    transform: scale(1.02) translateY(-4px);
+    box-shadow: 0 16px 40px rgba(254, 107, 36, 0.2);
+  }
+  
+  .pricing-header {
+    margin-bottom: 2rem;
+  }
+  
+  .plan-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .plan-badge .badge-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+  
+  .price-currency {
+    font-size: 1.25rem;
+    margin-right: 0.25rem;
+    color: #a3a3a3;
+  }
+  
+  .price-amount {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #fefefe;
+  }
+  
+  .price-period {
+    font-size: 1rem;
+    margin-left: 0.25rem;
+    color: #a3a3a3;
+  }
+  
+  .plan-description {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    color: #a3a3a3;
+  }
+  
+  .pricing-features {
+    margin: 2rem 0;
+  }
+  
+  .pricing-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .pricing-features li {
+    margin-bottom: 1rem;
+  }
+  
+  .pricing-features li:last-child {
+    margin-bottom: 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    color: #d4d4d4;
+    font-size: 0.875rem;
+  }
+  
+  .feature-check {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+    color: #fe6b24;
+  }
+  
+  .pricing-cta {
+    margin-top: 2rem;
+  }
+  
+  .cta-basic, .cta-enterprise {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #1a1a1a;
+    background: linear-gradient(145deg, #141414, #0f0f0f);
+    color: #fefefe;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .cta-basic:hover, .cta-enterprise:hover {
+    border-color: #fe6b24;
+    background: linear-gradient(145deg, rgba(254, 107, 36, 0.1), rgba(224, 74, 54, 0.05));
+    color: #fe6b24;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(254, 107, 36, 0.15);
+  }
+  
+  .cta-pro {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
+    color: #fefefe;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(224, 74, 54, 0.3);
+    cursor: pointer;
+  }
+  
+  .cta-pro:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(254, 107, 36, 0.4);
+    background: linear-gradient(90deg, #fe6b24, #e04a36);
+  }
+  
+  /* Botón cuando está seleccionado */
+  .pricing-card.selected .cta-basic,
+  .pricing-card.selected .cta-enterprise {
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
+    color: #fefefe;
+    border: none;
+    box-shadow: 0 4px 12px rgba(224, 74, 54, 0.3);
+  }
+  
+  .pricing-card.selected .cta-basic:hover,
+  .pricing-card.selected .cta-enterprise:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(254, 107, 36, 0.4);
+    background: linear-gradient(90deg, #fe6b24, #e04a36);
+    color: #fefefe;
+  }
+
+  /* Agregando estilos que faltaban del PricingSection original */
+  .cta-enterprise {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #1a1a1a;
+    background: linear-gradient(145deg, #141414, #0f0f0f);
+    color: #fefefe;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .cta-enterprise:hover {
+    border-color: #fe6b24;
+    background: linear-gradient(145deg, rgba(254, 107, 36, 0.1), rgba(224, 74, 54, 0.05));
+    color: #fe6b24;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(254, 107, 36, 0.15);
+  }
+  
+  .cta-pro {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
+    color: #fefefe;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(224, 74, 54, 0.3);
+    cursor: pointer;
+  }
+  
+  .cta-pro:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(254, 107, 36, 0.4);
+    background: linear-gradient(90deg, #fe6b24, #e04a36);
+  }
+
+  /* Featured badge para planes especiales */
+  .pricing-card-featured {
+    border: 2px solid #fe6b24;
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #1a1a1a, #141414);
+    box-shadow: 0 8px 32px rgba(254, 107, 36, 0.15);
+  }
+  
+  .pricing-card-featured:hover {
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: 0 16px 40px rgba(254, 107, 36, 0.2);
+  }
+  
+  .featured-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
+    color: #fefefe;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(224, 74, 54, 0.4);
+  }
+  
+  /* Plan Summary */
+  .plan-summary {
+    margin-bottom: 2rem;
+  }
+  
+  .summary-card {
+    background: #141414;
+    border: 1px solid #22c55e;
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  
+  .summary-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #22c55e;
+    margin: 0 0 1rem 0;
+  }
+  
+  .summary-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .summary-plan {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .summary-plan-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fefefe;
+  }
+  
+  .summary-plan-price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fe6b24;
+  }
+  
+  .summary-features {
+    flex: 1;
+    margin-left: 2rem;
+  }
+  
+  .summary-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .summary-features li {
+    font-size: 0.875rem;
+    color: #d4d4d4;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Payment Info */
+  .payment-info {
+    margin-top: 3rem;
+  }
+  
+  .payment-card {
+    background: #1a1a1d;
+    border: 1px solid #262626;
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  
+  .payment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .payment-icon {
+    color: #fe6b24;
+    margin-right: 1rem;
+  }
+  
+  .payment-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fefefe;
+    margin: 0;
+  }
+  
+  .payment-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .payment-step {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .step-number {
+    width: 2rem;
+    height: 2rem;
+    background: linear-gradient(135deg, #e04a36, #fe6b24);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .step-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fefefe;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .step-content p {
+    font-size: 0.875rem;
+    color: #a3a3a3;
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .step-container {
+      padding: 1rem;
+    }
+    
+    .plans-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .plan-card {
+      padding: 1.5rem;
+    }
+    
+    .summary-content {
+      flex-direction: column;
+    }
+    
+    .summary-features {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+    
+    .payment-steps {
+      grid-template-columns: 1fr;
+    }
+    
+    .step-title {
+      font-size: 1.75rem;
+    }
+  }
+</style>
