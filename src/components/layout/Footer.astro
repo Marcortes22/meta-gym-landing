@@ -2,7 +2,7 @@
 // src/components/layout/Footer.astro
 ---
 
-<footer class="relative py-20 overflow-hidden" style="background-color: #0a0a0a;">
+<footer class="relative py-20 overflow-hidden" style="background-color: #0e0e10;">
   
   <div class="absolute inset-0 opacity-5">
     <div class="absolute inset-0 bg-center footer-pattern"></div>
@@ -69,7 +69,6 @@
         </div>
       </div>
 
-      <!-- Columna 1: Funciones Principales -->
       <div>
         <h4 class="text-lg font-semibold mb-6" style="color: #fefefe;">Funciones MVP</h4>
         <ul class="space-y-4">
@@ -113,7 +112,6 @@
         </ul>
       </div>
 
-      <!-- Columna 3: Soporte y Contacto -->
       <div>
         <h4 class="text-lg font-semibold mb-6" style="color: #fefefe;">Soporte</h4>
         <ul class="space-y-4">
@@ -133,14 +131,13 @@
       </div>
     </div>
 
-    <!-- Call to Action Principal -->
     <div class="border-t border-b py-16" style="border-color: #262626;">
       <div class="max-w-4xl mx-auto text-center">
         <h4 class="text-3xl md:text-4xl font-bold mb-4" style="color: #fefefe;">
-          ¿Listo para <span style="color: #22c55e;">Profesionalizar</span> tu Gimnasio?
+          ¿Listo para <span style="color: #fe6b24;">Profesionalizar</span> tu Gimnasio?
         </h4>
         <p class="text-lg mb-8" style="color: #a3a3a3;">
-          Sin contratos largos, sin setup complejo. Setup en 24 horas y soporte en español incluido.
+          Sin contratos largos, sin setup complejo. Setup en 24 horas y soporte en diferentes idiomas.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -168,7 +165,7 @@
 
 <style>
   .footer-pattern {
-    background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ef4444" fill-opacity="0.1"><circle cx="30" cy="30" r="1"/></g></g></svg>');
+    background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23e04a36" fill-opacity="0.1"><circle cx="30" cy="30" r="1"/></g></g></svg>');
   }
   
   .footer-link {
@@ -179,7 +176,7 @@
   }
   
   .footer-link:hover {
-    color: #ef4444;
+    color: #e04a36;
     transform: translateX(4px);
   }
   
@@ -190,7 +187,7 @@
     left: 0;
     width: 0;
     height: 1px;
-    background-color: #ef4444;
+    background-color: #e04a36;
     transition: width 0.3s ease;
   }
   
@@ -217,7 +214,7 @@
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: linear-gradient(45deg, #ef4444, #22c55e);
+    background: linear-gradient(45deg, #e04a36, #fe6b24);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -248,8 +245,8 @@
   
   .newsletter-input:focus {
     outline: none;
-    border-color: #ef4444;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    border-color: #e04a36;
+    box-shadow: 0 0 0 3px rgba(224, 74, 54, 0.1);
   }
   
   .newsletter-input::placeholder {
@@ -258,7 +255,7 @@
   
   .newsletter-button {
     padding: 0.875rem 1.5rem;
-    background: linear-gradient(90deg, #ef4444, #dc2626);
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
     color: #fefefe;
     font-weight: 600;
     border: none;
@@ -272,16 +269,16 @@
   }
   
   .newsletter-button:hover {
-    background: linear-gradient(90deg, #dc2626, #b91c1c);
+    background: linear-gradient(90deg, #fe6b24, #e04a36);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 8px 20px rgba(224, 74, 54, 0.4);
   }
   
   .demo-button {
     padding: 0.875rem 1.5rem;
-    border: 2px solid rgba(34, 197, 94, 0.3);
-    background: rgba(34, 197, 94, 0.1);
-    color: #22c55e;
+    border: 2px solid rgba(254, 107, 36, 0.3);
+    background: rgba(254, 107, 36, 0.1);
+    color: #fe6b24;
     font-weight: 600;
     border-radius: 0.75rem;
     cursor: pointer;
@@ -295,11 +292,11 @@
   }
   
   .demo-button:hover {
-    border-color: #22c55e;
-    background: rgba(34, 197, 94, 0.2);
+    border-color: #fe6b24;
+    background: rgba(254, 107, 36, 0.2);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
-    color: #16a34a;
+    box-shadow: 0 8px 20px rgba(254, 107, 36, 0.3);
+    color: #e04a36;
   }
 </style>
 
@@ -328,43 +325,125 @@
       }
     });
 
-    // Newsletter form handling
+    // Newsletter form handling mejorado con API real
     const newsletterForm = document.getElementById('newsletter-form');
     const newsletterInput = newsletterForm?.querySelector('input[type="email"]');
     const newsletterButton = newsletterForm?.querySelector('button');
 
-    newsletterForm?.addEventListener('submit', (e) => {
+    newsletterForm?.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       if (newsletterInput && newsletterButton) {
+        const email = (newsletterInput as HTMLInputElement).value;
         const originalText = newsletterButton.innerHTML;
         
+        // Validación básica del lado del cliente
+        if (!email || !email.includes('@')) {
+          showMessage('Por favor ingresa un email válido', 'error');
+          return;
+        }
 
+        // UI Loading
         newsletterButton.innerHTML = `
           <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          Enviando...
+          Suscribiendo...
         `;
         
-        // Simular envío
-        setTimeout(() => {
+        try {
+          // Llamada real a la API
+          const response = await fetch('/api/newsletter', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Éxito
+            newsletterButton.innerHTML = `
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              ¡Suscrito!
+            `;
+            (newsletterInput as HTMLInputElement).value = '';
+            showMessage(result.message || '¡Gracias por suscribirte!', 'success');
+          } else {
+            throw new Error(result.error || 'Error al suscribirse');
+          }
+        } catch (error) {
+          console.error('Newsletter error:', error);
           newsletterButton.innerHTML = `
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
             </svg>
-            ¡Suscrito!
+            Error
           `;
-
-          (newsletterInput as HTMLInputElement).value = '';
-
-          setTimeout(() => {
-            newsletterButton.innerHTML = originalText;
-          }, 2000);
-        }, 1500);
+          const errorMessage = error instanceof Error ? error.message : 'Error al procesar la suscripción';
+          showMessage(errorMessage, 'error');
+        }
+        
+        // Volver al estado original después de 3 segundos
+        setTimeout(() => {
+          newsletterButton.innerHTML = originalText;
+        }, 3000);
       }
     });
+
+    // Función para mostrar mensajes
+    function showMessage(message: string, type: 'success' | 'error') {
+      // Remover mensaje anterior si existe
+      const existingMessage = document.querySelector('.newsletter-message');
+      if (existingMessage) {
+        existingMessage.remove();
+      }
+
+      // Crear nuevo mensaje
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `newsletter-message fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ${
+        type === 'success' 
+          ? 'bg-green-500 text-white' 
+          : 'bg-red-500 text-white'
+      }`;
+      messageDiv.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            ${type === 'success' 
+              ? '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />'
+              : '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />'
+            }
+          </svg>
+          <span>${message}</span>
+        </div>
+      `;
+
+      document.body.appendChild(messageDiv);
+
+      // Animar entrada
+      gsap.from(messageDiv, {
+        x: 100,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+
+      // Remover automáticamente después de 5 segundos
+      setTimeout(() => {
+        gsap.to(messageDiv, {
+          x: 100,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => messageDiv.remove()
+        });
+      }, 5000);
+    }
 
     // Hover animations para social links
     document.querySelectorAll('.social-link').forEach(link => {

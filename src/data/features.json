@@ -25,8 +25,8 @@
     },
     {
       "id": 4,
-      "title": "Gestión de Horarios y Clases",
-      "description": "Calendario visual de horarios del gimnasio, gestión de disponibilidad de instructores y organización de clases grupales.",
+      "title": "Gestión de Horarios",
+      "description": "Calendario visual de horarios del gimnasio, gestión de disponibilidad de instructores",
       "iconPath": "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
     },
     {

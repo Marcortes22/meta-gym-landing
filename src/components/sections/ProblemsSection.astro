@@ -2,7 +2,7 @@
 import problemsData from '../../data/problems.json';
 ---
 
-<section class="relative py-20 lg:py-32 bg-black overflow-hidden" id="problemas">
+<section class="relative py-20 lg:py-32 overflow-hidden" id="problemas" style="background-color: #0e0e10;">
   <div class="absolute inset-0 opacity-5">
     <div class="absolute inset-0 bg-center problems-pattern"></div>
   </div>
@@ -11,7 +11,7 @@ import problemsData from '../../data/problems.json';
     <div class="text-center mb-16" data-aos="fade-up">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
         {problemsData.header.title}
-        <span class="text-red-500 block">{problemsData.header.titleHighlight}</span>
+        <span class="block" style="color: #e04a36;">{problemsData.header.titleHighlight}</span>
       </h2>
       <p class="text-xl text-gray-300 max-w-3xl mx-auto">
         {problemsData.header.description}
@@ -24,8 +24,8 @@ import problemsData from '../../data/problems.json';
         <div class="problem-card group">
           <!-- Icon -->
           <div class="problem-icon mb-6">
-            <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors duration-300">
-              <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+            <div class="w-16 h-16 rounded-2xl flex items-center justify-center transition-colors duration-300" style="background-color: rgba(224, 74, 54, 0.1);" onmouseenter="this.style.backgroundColor='rgba(224, 74, 54, 0.2)'" onmouseleave="this.style.backgroundColor='rgba(224, 74, 54, 0.1)'">
+              <svg class="w-8 h-8" style="color: #e04a36;" fill="currentColor" viewBox="0 0 24 24">
                 <path d={problem.iconPath} />
               </svg>
             </div>
@@ -42,7 +42,7 @@ import problemsData from '../../data/problems.json';
           </div>
 
     
-          <div class="absolute inset-0 border border-transparent group-hover:border-red-500/30 rounded-2xl transition-colors duration-300"></div>
+          <div class="absolute inset-0 border border-transparent rounded-2xl transition-colors duration-300" style="border-color: transparent;" onmouseenter="this.style.borderColor='rgba(224, 74, 54, 0.3)'" onmouseleave="this.style.borderColor='transparent'"></div>
         </div>
       ))}
     </div>
@@ -90,7 +90,7 @@ import problemsData from '../../data/problems.json';
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #ef4444, transparent);
+    background: linear-gradient(90deg, transparent, #e04a36, transparent);
     border-radius: 12px 12px 0 0;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -102,7 +102,7 @@ import problemsData from '../../data/problems.json';
   
   .cta-button {
     position: relative;
-    background-color: #ef4444;
+    background-color: #e04a36;
     color: white;
     font-weight: 600;
     padding: 1rem 2rem;
@@ -128,7 +128,7 @@ import problemsData from '../../data/problems.json';
     inset: 0;
     border-radius: 9999px;
     padding: 2px;
-    background: linear-gradient(45deg, #ef4444, #dc2626, #ef4444);
+    background: linear-gradient(45deg, #e04a36, #fe6b24, #e04a36);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     opacity: 0;

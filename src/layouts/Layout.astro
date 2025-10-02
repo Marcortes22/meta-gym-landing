@@ -6,20 +6,59 @@ const { title = "Meta Gym - Sistema de Gestión para Gimnasios" } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-ES">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <meta http-equiv="content-language" content="es">
-  <meta name="language" content="Spanish">
+  <meta http-equiv="Content-Language" content="es-ES" />
   
   <title>{title}</title>
+  <meta name="description" content="Software todo-en-uno para gestionar tu gimnasio como un profesional. Aumenta retención 35%, elimina 20h administrativas y optimiza tu operación diaria." />
+  <meta name="keywords" content="software gimnasio, gestión gimnasio, sistema gym, control miembros, pagos gimnasio" />
+  <meta name="author" content="Meta Gym" />
+  <meta name="language" content="es-ES" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Translation helpers -->
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="alternate" hreflang="es" href="/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content="Software todo-en-uno para gestionar tu gimnasio como un profesional. Aumenta retención, elimina horas administrativas y optimiza tu operación." />
+  <meta property="og:locale" content="es_ES" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content="Software todo-en-uno para gestionar tu gimnasio como un profesional." />
+  
   <meta name="generator" content={Astro.generator} />
-  <link rel="icon" type="image/svg+xml" href="/src//assets/ChatGPT_Image_26_sept_2025__01_38_34-removebg-preview.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body>
-  <slot />
+  <div id="app" lang="es-ES">
+    <slot />
+  </div>
+  
+  <!-- Structured Data for better content recognition -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Meta Gym",
+    "description": "Software todo-en-uno para gestionar tu gimnasio como un profesional",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "39",
+      "priceCurrency": "USD"
+    },
+    "inLanguage": "es-ES"
+  }
+  </script>
 </body>
 </html>
 
