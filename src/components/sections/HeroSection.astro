@@ -29,14 +29,8 @@
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4" id="hero-buttons">
-          <button class="hero-cta-primary" id="cta-primary">
+          <button class="hero-cta-primary" id="cta-primary" onclick="scrollToNewsletter()">
             Comenzar Gratis
-          </button>
-          <button class="hero-cta-secondary" id="cta-secondary">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
-            </svg>
-            Ver Demo
           </button>
         </div>
       </div>
@@ -253,4 +247,28 @@
       }
     });
   });
+
+  // Función para hacer scroll al newsletter
+  (window as any).scrollToNewsletter = function() {
+    const newsletter = document.querySelector('#newsletter-form');
+    
+    if (newsletter) {
+      newsletter.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+      
+      // Añadir un pequeño efecto visual al formulario
+      const input = newsletter.querySelector('input[type="email"]') as HTMLInputElement;
+      if (input) {
+        setTimeout(() => {
+          try {
+            (input as HTMLInputElement).focus();
+          } catch (e) {
+            // Silenciar error si no se puede enfocar
+          }
+        }, 800);
+      }
+    }
+  };
 </script>

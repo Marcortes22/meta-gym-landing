@@ -9,11 +9,11 @@ import problemsData from '../../data/problems.json';
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16" data-aos="fade-up">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style="color: #fefefe;">
         {problemsData.header.title}
-        <span class="block" style="color: #e04a36;">{problemsData.header.titleHighlight}</span>
+        <span class="block" style="color: #fe6b24;">{problemsData.header.titleHighlight}</span>
       </h2>
-      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+      <p class="text-xl max-w-3xl mx-auto" style="color: #d4d4d4;">
         {problemsData.header.description}
       </p>
     </div>
@@ -24,8 +24,8 @@ import problemsData from '../../data/problems.json';
         <div class="problem-card group">
           <!-- Icon -->
           <div class="problem-icon mb-6">
-            <div class="w-16 h-16 rounded-2xl flex items-center justify-center transition-colors duration-300" style="background-color: rgba(224, 74, 54, 0.1);" onmouseenter="this.style.backgroundColor='rgba(224, 74, 54, 0.2)'" onmouseleave="this.style.backgroundColor='rgba(224, 74, 54, 0.1)'">
-              <svg class="w-8 h-8" style="color: #e04a36;" fill="currentColor" viewBox="0 0 24 24">
+            <div class="w-16 h-16 rounded-2xl flex items-center justify-center transition-colors duration-300" style="background-color: rgba(254, 107, 36, 0.15);" onmouseenter="this.style.backgroundColor='rgba(254, 107, 36, 0.25)'" onmouseleave="this.style.backgroundColor='rgba(254, 107, 36, 0.15)'">
+              <svg class="w-8 h-8" style="color: #fe6b24;" fill="currentColor" viewBox="0 0 24 24">
                 <path d={problem.iconPath} />
               </svg>
             </div>
@@ -33,26 +33,26 @@ import problemsData from '../../data/problems.json';
 
 
           <div class="problem-content">
-            <h3 class="text-xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
+            <h3 class="text-xl font-bold mb-4 transition-colors duration-300" style="color: #fefefe;">
               {problem.title}
             </h3>
-            <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+            <p class="leading-relaxed transition-colors duration-300" style="color: #a3a3a3;">
               {problem.description}
             </p>
           </div>
 
     
-          <div class="absolute inset-0 border border-transparent rounded-2xl transition-colors duration-300" style="border-color: transparent;" onmouseenter="this.style.borderColor='rgba(224, 74, 54, 0.3)'" onmouseleave="this.style.borderColor='transparent'"></div>
+          <div class="absolute inset-0 border border-transparent rounded-2xl transition-colors duration-300" style="border-color: transparent;" onmouseenter="this.style.borderColor='rgba(254, 107, 36, 0.4)'" onmouseleave="this.style.borderColor='transparent'"></div>
         </div>
       ))}
     </div>
 
 
     <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="600">
-      <p class="text-2xl font-semibold text-white mb-6">
+      <p class="text-2xl font-semibold mb-6" style="color: #fefefe;">
         ¿Te suenan familiares estos problemas?
       </p>
-      <button class="cta-button group">
+      <button class="cta-button group" onclick="scrollToNewsletter()">
         <span>Descubre la Solución</span>
         <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -64,23 +64,25 @@ import problemsData from '../../data/problems.json';
 
 <style>
   .problems-pattern {
-    background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%23ef4444" fill-opacity="0.1"><path d="M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z"/></g></svg>');
+    background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%23fe6b24" fill-opacity="0.08"><path d="M20 20.5V18H0v-2h20v-2.5L23.5 16l-3.5 2.5z"/></g></svg>');
   }
   
   .problem-card {
     position: relative;
     padding: 2rem;
-    background-color: rgba(17, 24, 39, 0.5);
-    backdrop-filter: blur(4px);
-    border-radius: 1rem;
-    border: 1px solid rgb(31, 41, 55);
-    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #141414, #0f0f0f);
+    backdrop-filter: blur(12px);
+    border-radius: 1.5rem;
+    border: 1px solid #1a1a1a;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   
   .problem-card:hover {
-    background-color: rgba(17, 24, 39, 0.7);
+    background: linear-gradient(145deg, #1a1a1a, #121212);
     transform: translateY(-8px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-color: rgba(254, 107, 36, 0.4);
+    box-shadow: 0 12px 32px rgba(254, 107, 36, 0.1);
   }
   
   .problem-card::before {
@@ -90,45 +92,53 @@ import problemsData from '../../data/problems.json';
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #e04a36, transparent);
-    border-radius: 12px 12px 0 0;
+    background: linear-gradient(90deg, transparent, #fe6b24, #e04a36, transparent);
+    border-radius: 1.5rem 1.5rem 0 0;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
   }
   
   .problem-card:hover::before {
     opacity: 1;
   }
   
+  .problem-card .problem-content h3:hover {
+    color: #fe6b24 !important;
+  }
+  
+  .problem-card:hover .problem-content p {
+    color: #d4d4d4 !important;
+  }
+  
   .cta-button {
     position: relative;
-    background-color: #e04a36;
-    color: white;
+    background: linear-gradient(90deg, #e04a36, #fe6b24);
+    color: #fefefe;
     font-weight: 600;
     padding: 1rem 2rem;
-    border-radius: 9999px;
+    border-radius: 1rem;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     margin: 0 auto;
-    box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 4px 12px rgba(254, 107, 36, 0.4);
   }
   
   .cta-button:hover {
-    background-color: #dc2626;
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -12px rgba(239, 68, 68, 0.6);
+    background: linear-gradient(90deg, #fe6b24, #e04a36);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(254, 107, 36, 0.5);
   }
   
   .cta-button::before {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 9999px;
+    border-radius: 1rem;
     padding: 2px;
-    background: linear-gradient(45deg, #e04a36, #fe6b24, #e04a36);
+    background: linear-gradient(45deg, #fe6b24, #e04a36, #fe6b24);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     opacity: 0;
@@ -187,5 +197,29 @@ import problemsData from '../../data/problems.json';
         });
       });
     });
+
+    // Función para hacer scroll al newsletter
+    (window as any).scrollToNewsletter = function() {
+      const newsletter = document.querySelector('#newsletter-form');
+      
+      if (newsletter) {
+        newsletter.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'center'
+        });
+        
+        // Añadir un pequeño efecto visual al formulario
+        const input = newsletter.querySelector('input[type="email"]') as HTMLInputElement;
+        if (input) {
+          setTimeout(() => {
+            try {
+              (input as HTMLInputElement).focus();
+            } catch (e) {
+              // Silenciar error si no se puede enfocar
+            }
+          }, 800);
+        }
+      }
+    };
   });
 </script>
