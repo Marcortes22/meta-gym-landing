@@ -13,7 +13,7 @@ export async function sendWelcomeEmail(email: string, name: string): Promise<Ema
     console.log('Enviando email de bienvenida a:', email);
     
     const { data, error } = await resend.emails.send({
-      from: 'Meta Gym <onboarding@brandondev.me>', // ← Tu dominio verificado
+      from: 'Meta Gym <onboarding@brandondev.me>', 
       to: [email],
       subject: '🎉 ¡Bienvenido a Meta Gym!',
       html: `
@@ -31,17 +31,36 @@ export async function sendWelcomeEmail(email: string, name: string): Promise<Ema
                 Gracias por elegir <strong style="color: #fe6b24;">Meta Gym</strong> para transformar tu gimnasio en un negocio profesional.
               </p>
               <p style="color: #a3a3a3; font-size: 14px; margin: 0;">
-                En los próximos minutos recibirás las instrucciones para comenzar tu setup.
+                Hemos recibido tu solicitud y nuestro equipo revisará tu información.
               </p>
             </div>
             
-            <div style="text-align: center; margin: 30px 0;">
-              <a 
-                href="https://app.metagym.com/setup" 
-                style="background: linear-gradient(90deg, #e04a36, #fe6b24); color: #fefefe; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;"
-              >
-                Comenzar Setup
-              </a>
+            <div style="background: rgba(254, 107, 36, 0.1); border: 1px solid rgba(254, 107, 36, 0.3); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+              <h3 style="color: #fe6b24; margin: 0 0 15px 0; font-size: 18px; text-align: center;">📋 Próximos pasos</h3>
+              <div style="color: #d4d4d4; font-size: 14px; line-height: 1.6;">
+                <div style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                  <span style="color: #fe6b24; margin-right: 10px; font-weight: bold;">1.</span>
+                  <span><strong>Revisión de información:</strong> Nuestro equipo verificará los datos de tu gimnasio</span>
+                </div>
+                <div style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                  <span style="color: #fe6b24; margin-right: 10px; font-weight: bold;">2.</span>
+                  <span><strong>Instrucciones de pago:</strong> Te enviaremos los detalles para activar tu cuenta</span>
+                </div>
+                <div style="margin: 0; display: flex; align-items: flex-start;">
+                  <span style="color: #fe6b24; margin-right: 10px; font-weight: bold;">3.</span>
+                  <span><strong>Setup personalizado:</strong> Te guiaremos en la configuración inicial</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: #141414; border: 1px solid #262626; border-radius: 8px; padding: 20px; text-align: center;">
+              <h4 style="color: #fe6b24; margin: 0 0 10px 0; font-size: 16px;">⏰ Tiempo estimado</h4>
+              <p style="color: #d4d4d4; margin: 0 0 10px 0; font-size: 14px;">
+                Recibirás nuestro siguiente email en las <strong>próximas 24-48 horas</strong>
+              </p>
+              <p style="color: #a3a3a3; margin: 0; font-size: 13px;">
+                Si tienes preguntas urgentes, puedes responder a este email
+              </p>
             </div>
           </div>
         </div>
@@ -66,56 +85,30 @@ export async function addToNewsletter(email: string): Promise<EmailResponse> {
     console.log('Enviando email de newsletter a:', email);
     
     const { data, error } = await resend.emails.send({
-      from: 'Meta Gym <noreply@brandondev.me>', // ← Tu dominio verificado
+      from: 'Meta Gym <noreply@brandondev.me>', 
       to: [email],
       subject: '✅ Confirmación de suscripción - Meta Gym Newsletter',
       html: `
-        <div style="background-color: #0e0e10; color: #fefefe; padding: 40px; font-family: Arial, sans-serif;">
-          <div style="max-width: 500px; margin: 0 auto;">
-            
-            <div style="text-align: center; margin-bottom: 30px;">
-              <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #e04a36, #fe6b24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                <span style="font-size: 36px;">🎉</span>
-              </div>
-              <h2 style="color: #fe6b24; margin: 0; font-size: 24px;">¡Suscripción Confirmada!</h2>
-            </div>
-
-            <div style="background: #1a1a1d; border: 1px solid #262626; border-radius: 12px; padding: 25px; margin-bottom: 25px;">
-              <p style="color: #d4d4d4; margin: 0 0 15px 0; font-size: 16px; line-height: 1.5;">
-                ¡Genial! Ya formas parte de la comunidad <strong style="color: #fe6b24;">Meta Gym</strong>.
-              </p>
-              <p style="color: #a3a3a3; margin: 0; font-size: 14px; line-height: 1.5;">
-                Recibirás tips exclusivos, casos de éxito y las últimas actualizaciones sobre gestión de gimnasios.
-              </p>
-            </div>
-
-            <div style="background: #141414; padding: 20px; border-radius: 8px; border: 1px solid #262626; text-align: center;">
-              <h3 style="color: #fe6b24; margin: 0 0 15px 0; font-size: 18px;">¿Qué puedes esperar?</h3>
-              <ul style="list-style: none; padding: 0; margin: 0; color: #a3a3a3; font-size: 14px;">
-                <li style="margin-bottom: 8px;">📊 Estrategias para aumentar retención</li>
-                <li style="margin-bottom: 8px;">💡 Tips de automatización</li>
-                <li style="margin-bottom: 8px;">🚀 Nuevas funcionalidades</li>
-                <li style="margin: 0;">💰 Casos de éxito reales</li>
-              </ul>
-            </div>
-
-            <div style="text-align: center; margin: 30px 0;">
-              <a 
-                href="https://metagym.app" 
-                style="background: linear-gradient(90deg, #e04a36, #fe6b24); color: #fefefe; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-size: 14px; display: inline-block;"
-              >
-                Visitar Meta Gym
-              </a>
-            </div>
-
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #262626; text-align: center;">
-              <p style="color: #666; font-size: 12px; margin: 0;">
-                Puedes cancelar tu suscripción en cualquier momento.
-              </p>
-            </div>
-            
+      <div style="background-color: #0e0e10; color: #fefefe; padding: 40px; font-family: Arial, sans-serif;">
+        <div style="max-width: 500px; margin: 0 auto;">
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+          <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #e04a36, #fe6b24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+          <span style="font-size: 36px;">🎉</span>
           </div>
+          <h2 style="color: #fe6b24; margin: 0; font-size: 24px;">¡Suscripción Confirmada!</h2>
         </div>
+
+        <div style="background: #1a1a1d; border: 1px solid #262626; border-radius: 12px; padding: 25px; margin-bottom: 25px;">
+          <p style="color: #d4d4d4; margin: 0 0 15px 0; font-size: 16px; line-height: 1.5;">
+          ¡Genial! Ya formas parte de la comunidad <strong style="color: #fe6b24;">Meta Gym</strong>.
+          </p>
+          <p style="color: #a3a3a3; margin: 0; font-size: 14px; line-height: 1.5;">
+          Recibirás tips exclusivos, casos de éxito y las últimas actualizaciones sobre gestión de gimnasios.
+          </p>
+        </div>
+        </div>
+      </div>
       `
     });
 
@@ -143,8 +136,8 @@ export async function sendContactFormEmail(
     console.log('Enviando formulario de contacto de:', email);
     
     const { data, error } = await resend.emails.send({
-      from: 'Meta Gym Contact <contact@brandondev.me>', // ← Tu dominio verificado
-      to: ['brandoncarrilloalvarez2@gmail.com'], // Tu email para recibir contactos
+      from: 'Meta Gym Contact <contact@brandondev.me>', 
+      to: ['brandoncarrilloalvarez2@gmail.com'], 
       subject: `📧 Nuevo mensaje de contacto - ${name}`,
       html: `
         <div style="background-color: #0e0e10; color: #fefefe; padding: 40px; font-family: Arial, sans-serif;">
