@@ -13,7 +13,7 @@ export async function sendWelcomeEmail(email: string, name: string): Promise<Ema
     console.log('Enviando email de bienvenida a:', email);
     
     const { data, error } = await resend.emails.send({
-      from: 'Meta Gym <onboarding@resend.dev>', // ← Cambiar a dominio de sandbox
+      from: 'Meta Gym <onboarding@brandondev.me>', // ← Tu dominio verificado
       to: [email],
       subject: '🎉 ¡Bienvenido a Meta Gym!',
       html: `
@@ -66,7 +66,7 @@ export async function addToNewsletter(email: string): Promise<EmailResponse> {
     console.log('Enviando email de newsletter a:', email);
     
     const { data, error } = await resend.emails.send({
-      from: 'Meta Gym <noreply@resend.dev>', // ← Cambiar a dominio de sandbox
+      from: 'Meta Gym <noreply@brandondev.me>', // ← Tu dominio verificado
       to: [email],
       subject: '✅ Confirmación de suscripción - Meta Gym Newsletter',
       html: `
@@ -143,7 +143,7 @@ export async function sendContactFormEmail(
     console.log('Enviando formulario de contacto de:', email);
     
     const { data, error } = await resend.emails.send({
-      from: 'Meta Gym Contact <contact@resend.dev>', // ← Cambiar a dominio de sandbox
+      from: 'Meta Gym Contact <contact@brandondev.me>', // ← Tu dominio verificado
       to: ['brandoncarrilloalvarez2@gmail.com'], // Tu email para recibir contactos
       subject: `📧 Nuevo mensaje de contacto - ${name}`,
       html: `
