@@ -6,7 +6,7 @@ interface Props {
 const { sticky = false } = Astro.props;
 ---
 
-<header class={`fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md transition-all duration-300 ${sticky ? 'shadow-lg' : ''}`}>
+<header class={`fixed top-0 w-full z-50 backdrop-blur-md transition-all duration-300 ${sticky ? 'shadow-lg' : ''}`} style="background-color: rgba(14, 14, 16, 0.9);">
   <nav class="mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16 lg:h-20">
       
@@ -24,7 +24,7 @@ const { sticky = false } = Astro.props;
               class="relative text-white font-medium pb-1 transition-colors duration-300 hover:text-white group"
             >
               Problemas
-              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style="background-color: #e04a36;"></span>
             </a>
           </li>
           <li>
@@ -33,7 +33,7 @@ const { sticky = false } = Astro.props;
               class="relative text-white font-medium pb-1 transition-colors duration-300 hover:text-white group"
             >
               Beneficios
-              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style="background-color: #e04a36;"></span>
             </a>
           </li>
           <li>
@@ -42,7 +42,7 @@ const { sticky = false } = Astro.props;
               class="relative text-white font-medium pb-1 transition-colors duration-300 hover:text-white group"
             >
               Funciones
-              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style="background-color: #e04a36;"></span>
             </a>
           </li>
           <li>
@@ -51,14 +51,17 @@ const { sticky = false } = Astro.props;
               class="relative text-white font-medium pb-1 transition-colors duration-300 hover:text-white group"
             >
               Planes
-              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style="background-color: #e04a36;"></span>
             </a>
           </li>
         </ul>
         
         <a 
           href="#hero" 
-          class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
+          class="text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:translate-y-0"
+          style="background-color: #e04a36;"
+          onmouseenter="this.style.backgroundColor='#fe6b24'"
+          onmouseleave="this.style.backgroundColor='#e04a36'"
         >
           Comenzar
         </a>
@@ -131,7 +134,10 @@ const { sticky = false } = Astro.props;
         <div>
           <a 
             href="#hero" 
-            class="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 text-lg"
+            class="block w-full text-center text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 text-lg"
+            style="background-color: #e04a36;"
+            onmouseenter="this.style.backgroundColor='#fe6b24'"
+            onmouseleave="this.style.backgroundColor='#e04a36'"
           >
             Comenzar
           </a>
