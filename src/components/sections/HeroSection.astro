@@ -27,11 +27,11 @@
           Software todo-en-uno para <span class="text-success font-semibold">aumentar membresías</span>, reducir cancelaciones y 
           automatizar tu operación diaria.
         </p>
-        
+    
         <div class="flex flex-col sm:flex-row gap-4" id="hero-buttons">
-          <button class="hero-cta-primary" id="cta-primary" onclick="scrollToNewsletter()">
-            Comenzar Gratis
-          </button>
+    <button class="hero-cta-primary" id="cta-primary" onclick="document.querySelector('#planes').scrollIntoView({ behavior: 'smooth' })">
+          Comenzar Gratis
+        </button>
         </div>
       </div>
       
@@ -250,7 +250,7 @@
 
   // Función para hacer scroll al newsletter
   (window as any).scrollToNewsletter = function() {
-    const newsletter = document.querySelector('#newsletter-form');
+    const newsletter = document.querySelector('#newsletter');
     
     if (newsletter) {
       newsletter.scrollIntoView({ 
@@ -259,11 +259,11 @@
       });
       
       // Añadir un pequeño efecto visual al formulario
-      const input = newsletter.querySelector('input[type="email"]') as HTMLInputElement;
+      const input = newsletter.querySelector('input[name="name"]') as HTMLInputElement;
       if (input) {
         setTimeout(() => {
           try {
-            (input as HTMLInputElement).focus();
+            input.focus();
           } catch (e) {
             // Silenciar error si no se puede enfocar
           }

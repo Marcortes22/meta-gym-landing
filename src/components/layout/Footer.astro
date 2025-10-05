@@ -122,7 +122,7 @@
       </div>
     </div>
 
-    <div class="border-t border-b py-16" style="border-color: #262626;">
+    <div id="newsletter" class="border-t border-b py-16" style="border-color: #262626;">
       <div class="max-w-4xl mx-auto text-center">
         <h4 class="text-3xl md:text-4xl font-bold mb-4" style="color: #fefefe;">
           ¿Listo para <span style="color: #fe6b24;">Profesionalizar</span> tu Gimnasio?
@@ -131,17 +131,34 @@
           Sin contratos largos, sin setup complejo. Setup en 24 horas y soporte en diferentes idiomas.
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-          <form class="flex flex-col sm:flex-row gap-4 max-w-md" id="newsletter-form">
-            <input
-              type="email"
-              placeholder="Email de tu gimnasio..."
-              class="newsletter-input flex-1"
-              required
-            >
-            <button type="submit" class="newsletter-button">
-              Empezar Gratis
-              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex flex-col gap-4 justify-center items-center mb-8">
+          <form class="flex flex-col gap-4 max-w-lg w-full" id="register-form">
+            <div class="flex flex-col sm:flex-row gap-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="Tu nombre completo..."
+                class="newsletter-input flex-1"
+                required
+              >
+              <input
+                type="email"
+                name="email"
+                placeholder="Email de tu gimnasio..."
+                class="newsletter-input flex-1"
+                required
+              >
+            </div>
+            <button type="submit" class="newsletter-button w-full sm:w-auto">
+              <span id="register-btn-text">Solicitar Suscripción</span>
+              <span id="register-btn-loading" class="hidden">
+                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Procesando...
+              </span>
+              <svg id="register-arrow" class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </button>
@@ -316,74 +333,82 @@
       }
     });
 
-    // Newsletter form handling mejorado con API real
-    const newsletterForm = document.getElementById('newsletter-form');
-    const newsletterInput = newsletterForm?.querySelector('input[type="email"]');
-    const newsletterButton = newsletterForm?.querySelector('button');
+    // Register form handling con API de register_request
+    const registerForm = document.getElementById('register-form') as HTMLFormElement;
+    const registerBtnText = document.getElementById('register-btn-text') as HTMLElement;
+    const registerBtnLoading = document.getElementById('register-btn-loading') as HTMLElement;
+    const registerArrow = document.getElementById('register-arrow') as HTMLElement;
 
-    newsletterForm?.addEventListener('submit', async (e) => {
+    registerForm?.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      if (newsletterInput && newsletterButton) {
-        const email = (newsletterInput as HTMLInputElement).value;
-        const originalText = newsletterButton.innerHTML;
+      if (registerForm && registerBtnText && registerBtnLoading && registerArrow) {
+        const formData = new FormData(registerForm);
+        const name = formData.get('name') as string;
+        const email = formData.get('email') as string;
         
         // Validación básica del lado del cliente
+        if (!name || name.trim().length < 2) {
+          showMessage('Por favor ingresa tu nombre completo', 'error');
+          return;
+        }
+        
         if (!email || !email.includes('@')) {
           showMessage('Por favor ingresa un email válido', 'error');
           return;
         }
 
         // UI Loading
-        newsletterButton.innerHTML = `
-          <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          Suscribiendo...
-        `;
+        registerBtnText.classList.add('hidden');
+        registerBtnLoading.classList.remove('hidden');
+        registerArrow.classList.add('hidden');
         
         try {
-          // Llamada real a la API
-          const response = await fetch('/api/newsletter', {
+          // Llamada real a la API de register_request
+          const response = await fetch('/api/register-request', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email })
+            body: formData
           });
           
           const result = await response.json();
           
           if (result.success) {
             // Éxito
-            newsletterButton.innerHTML = `
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              ¡Suscrito!
-            `;
-            (newsletterInput as HTMLInputElement).value = '';
-            showMessage(result.message || '¡Gracias por suscribirte!', 'success');
+            registerBtnText.innerHTML = '¡Solicitud Enviada!';
+            registerBtnText.classList.remove('hidden');
+            registerBtnLoading.classList.add('hidden');
+            
+            // Limpiar el formulario
+            registerForm.reset();
+            
+            showMessage(result.message || '¡Gracias! Te contactaremos pronto para configurar tu gimnasio.', 'success');
+            
+            // Resetear botón después de unos segundos
+            setTimeout(() => {
+              registerBtnText.innerHTML = 'Solicitar Acceso Gratis';
+              registerArrow.classList.remove('hidden');
+            }, 4000);
+            
           } else {
-            throw new Error(result.error || 'Error al suscribirse');
+            throw new Error(result.message || 'Error al enviar solicitud');
           }
         } catch (error) {
-          console.error('Newsletter error:', error);
-          newsletterButton.innerHTML = `
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-            </svg>
-            Error
-          `;
-          const errorMessage = error instanceof Error ? error.message : 'Error al procesar la suscripción';
+          console.error('Register request error:', error);
+          
+          registerBtnText.innerHTML = 'Error - Intentar de nuevo';
+          registerBtnText.classList.remove('hidden');
+          registerBtnLoading.classList.add('hidden');
+          registerArrow.classList.add('hidden');
+          
+          const errorMessage = error instanceof Error ? error.message : 'Error al procesar la solicitud';
           showMessage(errorMessage, 'error');
+          
+          // Resetear botón después de unos segundos
+          setTimeout(() => {
+            registerBtnText.innerHTML = 'Solicitar Acceso Gratis';
+            registerArrow.classList.remove('hidden');
+          }, 3000);
         }
-        
-        // Volver al estado original después de 3 segundos
-        setTimeout(() => {
-          newsletterButton.innerHTML = originalText;
-        }, 3000);
       }
     });
 
