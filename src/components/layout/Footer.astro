@@ -149,6 +149,16 @@
                 required
               >
             </div>
+            <div>
+              <input
+                type="text"
+                name="tenant_name"
+                id="tenant-name-input"
+                placeholder="Nombre de tu gimnasio (ej: Fitness Pro)..."
+                class="newsletter-input w-full"
+                required
+              >
+            </div>
             <button type="submit" class="newsletter-button w-full sm:w-auto">
               <span id="register-btn-text">Solicitar Suscripción</span>
               <span id="register-btn-loading" class="hidden">
@@ -333,6 +343,33 @@
       }
     });
 
+    // Función auxiliar para normalizar el tenant_name (igual que en el backend)
+    function normalizeTenantName(tenantName: string): string {
+      return tenantName
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s]/g, '') // Remover caracteres especiales excepto espacios
+        .replace(/\s+/g, '-') // Reemplazar espacios con guiones
+        .replace(/^-+|-+$/g, ''); // Remover guiones al inicio y final
+    }
+
+    // Preview del tenant_name en tiempo real
+    const tenantNameInput = document.getElementById('tenant-name-input') as HTMLInputElement;
+    const tenantPreview = document.getElementById('tenant-preview') as HTMLElement;
+
+    tenantNameInput?.addEventListener('input', () => {
+      const value = (tenantNameInput as HTMLInputElement).value;
+      const normalized = normalizeTenantName(value);
+      
+      if (normalized) {
+        tenantPreview.textContent = normalized;
+        tenantPreview.style.color = '#fe6b24';
+      } else {
+        tenantPreview.textContent = 'mi-gimnasio';
+        tenantPreview.style.color = '#a3a3a3';
+      }
+    });
+
     // Register form handling con API de register_request
     const registerForm = document.getElementById('register-form') as HTMLFormElement;
     const registerBtnText = document.getElementById('register-btn-text') as HTMLElement;
@@ -346,6 +383,7 @@
         const formData = new FormData(registerForm);
         const name = formData.get('name') as string;
         const email = formData.get('email') as string;
+        const tenantName = formData.get('tenant_name') as string;
         
         // Validación básica del lado del cliente
         if (!name || name.trim().length < 2) {
@@ -355,6 +393,11 @@
         
         if (!email || !email.includes('@')) {
           showMessage('Por favor ingresa un email válido', 'error');
+          return;
+        }
+
+        if (!tenantName || tenantName.trim().length < 2) {
+          showMessage('Por favor ingresa el nombre de tu gimnasio', 'error');
           return;
         }
 

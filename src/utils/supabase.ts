@@ -11,15 +11,29 @@ if (!supabaseUrl || !supabaseKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Función para crear una solicitud de registro con solo nombre y email
-export async function crearSolicitudRegistro(name: string, email: string): Promise<RegisterRequestResponse> {
+// Función auxiliar para normalizar el tenant_name
+function normalizeTenantName(tenantName: string): string {
+  return tenantName
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s]/g, '') // Remover caracteres especiales excepto espacios
+    .replace(/\s+/g, '-') // Reemplazar espacios con guiones
+    .replace(/^-+|-+$/g, ''); // Remover guiones al inicio y final
+}
+
+// Función para crear una solicitud de registro con nombre, email y tenant_name
+export async function crearSolicitudRegistro(name: string, email: string, tenantName: string): Promise<RegisterRequestResponse> {
   try {
+    // Normalizar el tenant_name
+    const normalizedTenantName = normalizeTenantName(tenantName);
+    
     const { data, error } = await supabase
       .from('register_request')
       .insert([
         { 
           name: name,
           email: email,
+          tenant_name: normalizedTenantName,
           // Los demás campos (data, state, created_at) se manejan por defecto en la base de datos
         }
       ])
@@ -64,6 +78,25 @@ export async function verificarSolicitudExistente(email: string): Promise<boolea
     return !error && data !== null;
   } catch (error) {
     console.error('Error verificando solicitud existente:', error);
+    return false;
+  }
+}
+
+// Función para verificar si un tenant_name ya existe
+export async function verificarTenantNameExistente(tenantName: string): Promise<boolean> {
+  try {
+    const normalizedTenantName = normalizeTenantName(tenantName);
+    
+    const { data, error } = await supabase
+      .from('register_request')
+      .select('id')
+      .eq('tenant_name', normalizedTenantName)
+      .single();
+
+    // Si encuentra un registro, ya existe el tenant_name
+    return !error && data !== null;
+  } catch (error) {
+    console.error('Error verificando tenant_name existente:', error);
     return false;
   }
 }

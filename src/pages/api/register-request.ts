@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { crearSolicitudRegistro, verificarSolicitudExistente } from '../../utils/supabase';
+import { crearSolicitudRegistro, verificarSolicitudExistente, verificarTenantNameExistente } from '../../utils/supabase';
 import { sendWelcomeEmail } from '../../utils/email';
 
 export const POST: APIRoute = async ({ request }) => {
@@ -7,13 +7,14 @@ export const POST: APIRoute = async ({ request }) => {
     const formData = await request.formData();
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
+    const tenantName = formData.get('tenant_name') as string;
 
     // Validaciones básicas
-    if (!name || !email) {
+    if (!name || !email || !tenantName) {
       return new Response(
         JSON.stringify({ 
           success: false, 
-          message: 'Nombre y email son requeridos' 
+          message: 'Nombre, email y nombre del gimnasio son requeridos' 
         }), 
         { 
           status: 400,
@@ -37,6 +38,20 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    // Validar longitud del nombre del gimnasio
+    if (tenantName.trim().length < 2) {
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: 'El nombre del gimnasio debe tener al menos 2 caracteres' 
+        }), 
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
     // Verificar si ya existe una solicitud con este email
     const solicitudExiste = await verificarSolicitudExistente(email);
     if (solicitudExiste) {
@@ -52,8 +67,23 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    // Verificar si ya existe una solicitud con este nombre de gimnasio
+    const tenantNameExiste = await verificarTenantNameExistente(tenantName);
+    if (tenantNameExiste) {
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: 'Ya existe un gimnasio registrado con ese nombre. Por favor elige otro nombre.' 
+        }), 
+        { 
+          status: 409,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
     // Crear la solicitud de registro
-    const resultado = await crearSolicitudRegistro(name, email);
+    const resultado = await crearSolicitudRegistro(name, email, tenantName);
     
     if (!resultado.success) {
       return new Response(

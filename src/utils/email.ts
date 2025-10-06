@@ -15,13 +15,19 @@ export async function sendWelcomeEmail(email: string, name: string): Promise<Ema
     const { data, error } = await resend.emails.send({
       from: 'Meta Gym <onboarding@brandondev.me>', 
       to: [email],
-      subject: '🎉 ¡Bienvenido a Meta Gym!',
+      subject: 'Bienvenido a Meta Gym - Tu cuenta ha sido creada',
       html: `
         <div style="background-color: #0e0e10; color: #fefefe; padding: 40px; font-family: Arial, sans-serif;">
           <div style="max-width: 600px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 30px;">
               <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #e04a36, #fe6b24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                <span style="font-size: 36px; color: white;">🏋️</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                  <path d="M5 3v4"/>
+                  <path d="M19 17v4"/>
+                  <path d="M3 5h4"/>
+                  <path d="M17 19h4"/>
+                </svg>
               </div>
               <h1 style="color: #fe6b24; margin: 0;">¡Bienvenido ${name}!</h1>
             </div>
@@ -36,7 +42,14 @@ export async function sendWelcomeEmail(email: string, name: string): Promise<Ema
             </div>
             
             <div style="background: rgba(254, 107, 36, 0.1); border: 1px solid rgba(254, 107, 36, 0.3); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
-              <h3 style="color: #fe6b24; margin: 0 0 15px 0; font-size: 18px; text-align: center;">📋 Próximos pasos</h3>
+              <h3 style="color: #fe6b24; margin: 0 0 15px 0; font-size: 18px; text-align: center; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fe6b24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                  <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                  <path d="m9 14 2 2 4-4"/>
+                </svg>
+                Próximos pasos
+              </h3>
               <div style="color: #d4d4d4; font-size: 14px; line-height: 1.6;">
                 <div style="margin-bottom: 12px; display: flex; align-items: flex-start;">
                   <span style="color: #fe6b24; margin-right: 10px; font-weight: bold;">1.</span>
@@ -54,7 +67,13 @@ export async function sendWelcomeEmail(email: string, name: string): Promise<Ema
             </div>
 
             <div style="background: #141414; border: 1px solid #262626; border-radius: 8px; padding: 20px; text-align: center;">
-              <h4 style="color: #fe6b24; margin: 0 0 10px 0; font-size: 16px;">⏰ Tiempo estimado</h4>
+              <h4 style="color: #fe6b24; margin: 0 0 10px 0; font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fe6b24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12,6 12,12 16,14"/>
+                </svg>
+                Tiempo estimado
+              </h4>
               <p style="color: #d4d4d4; margin: 0 0 10px 0; font-size: 14px;">
                 Recibirás nuestro siguiente email en las <strong>próximas 24-48 horas</strong>
               </p>
@@ -87,14 +106,16 @@ export async function addToNewsletter(email: string): Promise<EmailResponse> {
     const { data, error } = await resend.emails.send({
       from: 'Meta Gym <noreply@brandondev.me>', 
       to: [email],
-      subject: '✅ Confirmación de suscripción - Meta Gym Newsletter',
+      subject: 'Confirmación de suscripción - Meta Gym Newsletter',
       html: `
       <div style="background-color: #0e0e10; color: #fefefe; padding: 40px; font-family: Arial, sans-serif;">
         <div style="max-width: 500px; margin: 0 auto;">
         
         <div style="text-align: center; margin-bottom: 30px;">
           <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #e04a36, #fe6b24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-          <span style="font-size: 36px;">🎉</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5"/>
+            </svg>
           </div>
           <h2 style="color: #fe6b24; margin: 0; font-size: 24px;">¡Suscripción Confirmada!</h2>
         </div>
@@ -138,12 +159,18 @@ export async function sendContactFormEmail(
     const { data, error } = await resend.emails.send({
       from: 'Meta Gym Contact <contact@brandondev.me>', 
       to: ['brandoncarrilloalvarez2@gmail.com'], 
-      subject: `📧 Nuevo mensaje de contacto - ${name}`,
+      subject: `Nuevo mensaje de contacto - ${name}`,
       html: `
         <div style="background-color: #0e0e10; color: #fefefe; padding: 40px; font-family: Arial, sans-serif;">
           <div style="max-width: 600px; margin: 0 auto;">
             
             <div style="text-align: center; margin-bottom: 30px;">
+              <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #e04a36, #fe6b24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
               <h2 style="color: #fe6b24; margin: 0;">Nuevo mensaje de contacto</h2>
             </div>
 

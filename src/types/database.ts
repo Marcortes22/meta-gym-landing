@@ -3,6 +3,7 @@ export interface RegisterRequest {
   id: string;
   name: string;
   email: string;
+  tenant_name?: string | null;
   data?: Date | null;
   state?: string | null;
   created_at: string;
@@ -19,4 +20,5 @@ export interface RegisterRequestResponse {
 export interface CreateRegisterRequest {
   name: string;
   email: string;
+  tenant_name: string;
 }
