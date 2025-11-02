@@ -9,12 +9,17 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^4.4.1",
     "@astrojs/vercel": "^8.2.8",
     "@lucide/astro": "^0.545.0",
-    "@supabase/supabase-js": "^2.58.0",
     "@tailwindcss/vite": "^4.1.13",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "astro": "^5.13.7",
+    "firebase": "^12.5.0",
     "gsap": "^3.13.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "resend": "^6.1.2",
     "tailwindcss": "^4.1.13"
   }

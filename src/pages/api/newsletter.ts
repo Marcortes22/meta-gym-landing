@@ -82,18 +82,29 @@ export const POST: APIRoute = async ({ request }) => {
         }
       );
     }
-
-    console.log('Procesando suscripción para email:', email);
     
+    // Guardar en Firebase y enviar email de confirmación
+    const { agregarEmailNewsletter } = await import('../../utils/firebase');
+    const dbResult = await agregarEmailNewsletter(email);
+    
+    if (dbResult.error) {
+      console.error('Error guardando en Firebase:', dbResult.error);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: 'Error al guardar la suscripción' 
+        }),
+        { 
+          status: 500, 
+          headers: { 'Content-Type': 'application/json' } 
+        }
+      );
+    }
+
     // Enviar email de confirmación usando Resend
     const result = await addToNewsletter(email);
     
     if (result.success) {
-      console.log('Newsletter email enviado exitosamente');
-      
-      // Aquí podrías guardar en base de datos si tienes una
-      // await saveToDatabase(email);
-      
       return new Response(
         JSON.stringify({ 
           success: true, 

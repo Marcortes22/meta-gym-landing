@@ -1,4 +1,6 @@
 ---
+import RegisterModalWrapper from '../components/ui/RegisterModalWrapper.astro';
+
 export interface Props {
   title?: string;
 }
@@ -42,6 +44,9 @@ const { title = "Meta Gym - Sistema de Gestión para Gimnasios" } = Astro.props;
     <slot />
   </div>
   
+  <!-- Modal de Registro -->
+  <RegisterModalWrapper />
+  
   <!-- Structured Data for better content recognition -->
   <script type="application/ld+json">
   {
@@ -60,34 +65,6 @@ const { title = "Meta Gym - Sistema de Gestión para Gimnasios" } = Astro.props;
   }
   </script>
 
-  <!-- Función global para scroll al newsletter -->
-  <script>
-    // Función global para hacer scroll al newsletter del footer
-    (window as any).scrollToNewsletter = function() {
-      const newsletter = document.querySelector('#newsletter');
-      
-      if (newsletter) {
-        newsletter.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'center'
-        });
-        
-        // Añadir un pequeño efecto visual al formulario
-        const input = newsletter.querySelector('input[name="name"]') as HTMLInputElement;
-        if (input) {
-          setTimeout(() => {
-            try {
-              input.focus();
-            } catch (e) {
-              // Silenciar error si no se puede enfocar
-            }
-          }, 800);
-        }
-      } else {
-        console.warn('Elemento #newsletter no encontrado');
-      }
-    };
-  </script>
 </body>
 </html>
 

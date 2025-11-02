@@ -60,8 +60,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
     
-    console.log('Procesando mensaje de contacto de:', name, email);
-    
     // Enviar email usando Resend
     const result = await sendContactFormEmail(
       name.trim(), 
@@ -71,8 +69,6 @@ export const POST: APIRoute = async ({ request }) => {
     );
     
     if (result.success) {
-      console.log('Email de contacto enviado exitosamente:', result.data);
-      
       return new Response(
         JSON.stringify({ 
           success: true, 

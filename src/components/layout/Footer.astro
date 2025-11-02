@@ -122,59 +122,11 @@
       </div>
     </div>
 
-    <div id="newsletter" class="border-t border-b py-16" style="border-color: #262626;">
-      <div class="max-w-4xl mx-auto text-center">
-        <h4 class="text-3xl md:text-4xl font-bold mb-4" style="color: #fefefe;">
-          ¿Listo para <span style="color: #fe6b24;">Profesionalizar</span> tu Gimnasio?
-        </h4>
-        <p class="text-lg mb-8" style="color: #a3a3a3;">
-          Sin contratos largos, sin setup complejo. Setup en 24 horas y soporte en diferentes idiomas.
+    <div class="border-t py-8" style="border-color: #262626;">
+      <div class="text-center">
+        <p style="color: #737373;">
+          © {new Date().getFullYear()} Meta Gym. Todos los derechos reservados.
         </p>
-        
-        <div class="flex flex-col gap-4 justify-center items-center mb-8">
-          <form class="flex flex-col gap-4 max-w-lg w-full" id="register-form">
-            <div class="flex flex-col sm:flex-row gap-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="Tu nombre completo..."
-                class="newsletter-input flex-1"
-                required
-              >
-              <input
-                type="email"
-                name="email"
-                placeholder="Email de tu gimnasio..."
-                class="newsletter-input flex-1"
-                required
-              >
-            </div>
-            <div>
-              <input
-                type="text"
-                name="tenant_name"
-                id="tenant-name-input"
-                placeholder="Nombre de tu gimnasio (ej: Fitness Pro)..."
-                class="newsletter-input w-full"
-                required
-              >
-            </div>
-            <button type="submit" class="newsletter-button w-full sm:w-auto">
-              <span id="register-btn-text">Solicitar Suscripción</span>
-              <span id="register-btn-loading" class="hidden">
-                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Procesando...
-              </span>
-              <svg id="register-arrow" class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-          </form>
-        </div>
-        </div>
       </div>
     </div>
     </div>
@@ -252,70 +204,6 @@
     z-index: 1;
   }
   
-  .newsletter-input {
-    padding: 0.875rem 1rem;
-    border-radius: 0.75rem;
-    border: 1px solid #262626;
-    background-color: #141414;
-    color: #fefefe;
-    transition: all 0.3s ease;
-  }
-  
-  .newsletter-input:focus {
-    outline: none;
-    border-color: #e04a36;
-    box-shadow: 0 0 0 3px rgba(224, 74, 54, 0.1);
-  }
-  
-  .newsletter-input::placeholder {
-    color: #a3a3a3;
-  }
-  
-  .newsletter-button {
-    padding: 0.875rem 1.5rem;
-    background: linear-gradient(90deg, #e04a36, #fe6b24);
-    color: #fefefe;
-    font-weight: 600;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-  }
-  
-  .newsletter-button:hover {
-    background: linear-gradient(90deg, #fe6b24, #e04a36);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(224, 74, 54, 0.4);
-  }
-  
-  .demo-button {
-    padding: 0.875rem 1.5rem;
-    border: 2px solid rgba(254, 107, 36, 0.3);
-    background: rgba(254, 107, 36, 0.1);
-    color: #fe6b24;
-    font-weight: 600;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    text-decoration: none;
-    backdrop-filter: blur(4px);
-  }
-  
-  .demo-button:hover {
-    border-color: #fe6b24;
-    background: rgba(254, 107, 36, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(254, 107, 36, 0.3);
-    color: #e04a36;
-  }
 </style>
 
 <script>
@@ -325,8 +213,6 @@
   gsap.registerPlugin(ScrollTrigger);
   
   document.addEventListener('DOMContentLoaded', () => {
-    
-
     gsap.fromTo("footer > div > div", {
       y: 60,
       opacity: 0
@@ -342,167 +228,6 @@
         toggleActions: "play none none reverse"
       }
     });
-
-    // Función auxiliar para normalizar el tenant_name (igual que en el backend)
-    function normalizeTenantName(tenantName: string): string {
-      return tenantName
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9\s]/g, '') // Remover caracteres especiales excepto espacios
-        .replace(/\s+/g, '-') // Reemplazar espacios con guiones
-        .replace(/^-+|-+$/g, ''); // Remover guiones al inicio y final
-    }
-
-    // Preview del tenant_name en tiempo real
-    const tenantNameInput = document.getElementById('tenant-name-input') as HTMLInputElement;
-    const tenantPreview = document.getElementById('tenant-preview') as HTMLElement;
-
-    tenantNameInput?.addEventListener('input', () => {
-      const value = (tenantNameInput as HTMLInputElement).value;
-      const normalized = normalizeTenantName(value);
-      
-      if (normalized) {
-        tenantPreview.textContent = normalized;
-        tenantPreview.style.color = '#fe6b24';
-      } else {
-        tenantPreview.textContent = 'mi-gimnasio';
-        tenantPreview.style.color = '#a3a3a3';
-      }
-    });
-
-    // Register form handling con API de register_request
-    const registerForm = document.getElementById('register-form') as HTMLFormElement;
-    const registerBtnText = document.getElementById('register-btn-text') as HTMLElement;
-    const registerBtnLoading = document.getElementById('register-btn-loading') as HTMLElement;
-    const registerArrow = document.getElementById('register-arrow') as HTMLElement;
-
-    registerForm?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      if (registerForm && registerBtnText && registerBtnLoading && registerArrow) {
-        const formData = new FormData(registerForm);
-        const name = formData.get('name') as string;
-        const email = formData.get('email') as string;
-        const tenantName = formData.get('tenant_name') as string;
-        
-        // Validación básica del lado del cliente
-        if (!name || name.trim().length < 2) {
-          showMessage('Por favor ingresa tu nombre completo', 'error');
-          return;
-        }
-        
-        if (!email || !email.includes('@')) {
-          showMessage('Por favor ingresa un email válido', 'error');
-          return;
-        }
-
-        if (!tenantName || tenantName.trim().length < 2) {
-          showMessage('Por favor ingresa el nombre de tu gimnasio', 'error');
-          return;
-        }
-
-        // UI Loading
-        registerBtnText.classList.add('hidden');
-        registerBtnLoading.classList.remove('hidden');
-        registerArrow.classList.add('hidden');
-        
-        try {
-          // Llamada real a la API de register_request
-          const response = await fetch('/api/register-request', {
-            method: 'POST',
-            body: formData
-          });
-          
-          const result = await response.json();
-          
-          if (result.success) {
-            // Éxito
-            registerBtnText.innerHTML = '¡Solicitud Enviada!';
-            registerBtnText.classList.remove('hidden');
-            registerBtnLoading.classList.add('hidden');
-            
-            // Limpiar el formulario
-            registerForm.reset();
-            
-            showMessage(result.message || '¡Gracias! Te contactaremos pronto para configurar tu gimnasio.', 'success');
-            
-            // Resetear botón después de unos segundos
-            setTimeout(() => {
-              registerBtnText.innerHTML = 'Solicitar Acceso Gratis';
-              registerArrow.classList.remove('hidden');
-            }, 4000);
-            
-          } else {
-            throw new Error(result.message || 'Error al enviar solicitud');
-          }
-        } catch (error) {
-          console.error('Register request error:', error);
-          
-          registerBtnText.innerHTML = 'Error - Intentar de nuevo';
-          registerBtnText.classList.remove('hidden');
-          registerBtnLoading.classList.add('hidden');
-          registerArrow.classList.add('hidden');
-          
-          const errorMessage = error instanceof Error ? error.message : 'Error al procesar la solicitud';
-          showMessage(errorMessage, 'error');
-          
-          // Resetear botón después de unos segundos
-          setTimeout(() => {
-            registerBtnText.innerHTML = 'Solicitar Acceso Gratis';
-            registerArrow.classList.remove('hidden');
-          }, 3000);
-        }
-      }
-    });
-
-    // Función para mostrar mensajes
-    function showMessage(message: string, type: 'success' | 'error') {
-      // Remover mensaje anterior si existe
-      const existingMessage = document.querySelector('.newsletter-message');
-      if (existingMessage) {
-        existingMessage.remove();
-      }
-
-      // Crear nuevo mensaje
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `newsletter-message fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ${
-        type === 'success' 
-          ? 'bg-green-500 text-white' 
-          : 'bg-red-500 text-white'
-      }`;
-      messageDiv.innerHTML = `
-        <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            ${type === 'success' 
-              ? '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />'
-              : '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />'
-            }
-          </svg>
-          <span>${message}</span>
-        </div>
-      `;
-
-      document.body.appendChild(messageDiv);
-
-      // Animar entrada
-      gsap.from(messageDiv, {
-        x: 100,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-
-      // Remover automáticamente después de 5 segundos
-      setTimeout(() => {
-        gsap.to(messageDiv, {
-          x: 100,
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => messageDiv.remove()
-        });
-      }, 5000);
-    }
 
     // Hover animations para social links
     document.querySelectorAll('.social-link').forEach(link => {

@@ -1,10 +1,15 @@
-# Astro Starter Kit: Basics
+# Meta Gym Landing Page
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Landing page profesional para Meta Gym - Sistema de gestión para gimnasios.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🔥 Stack Tecnológico
+
+- **Framework**: Astro 5.13.7
+- **Base de Datos**: Firebase (Firestore)
+- **Email**: Resend API
+- **Despliegue**: Vercel
+- **Estilos**: Tailwind CSS
+- **Iconos**: Lucide React
 
 ## 🚀 Project Structure
 

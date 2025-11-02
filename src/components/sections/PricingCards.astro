@@ -1,54 +1,8 @@
 ---
-import { obtenerPlanes } from '../../utils/firebase';
-import PricingCards from './PricingCards.astro';
-
-// Obtener planes en el servidor
-let planes: any[] = [];
-let error = false;
-
-try {
-  planes = await obtenerPlanes();
-} catch (e) {
-  console.error('Error cargando planes:', e);
-  error = true;
-}
+const { planes } = Astro.props;
 ---
 
-<section class="relative py-20 lg:py-32 overflow-hidden" id="planes" style="background-color: #0e0e10;">
-  <div class="absolute inset-0 opacity-5">
-    <div class="absolute inset-0 bg-center pricing-pattern"></div>
-  </div>
-
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style="color: #fefefe;">
-        Planes que Crecen
-        <span class="block" style="color: #fe6b24;">con tu Gimnasio</span>
-      </h2>
-      <p class="text-xl max-w-3xl mx-auto" style="color: #d4d4d4;">
-        Funcionalidades MVP diseñadas para gimnasios que quieren profesionalizar su operación desde el día uno.
-      </p>
-    </div>
-
-    {error ? (
-      <div class="text-center py-12">
-        <p style="color: #fe6b24;">Error al cargar los planes. Por favor, intenta de nuevo.</p>
-      </div>
-    ) : planes.length === 0 ? (
-      <div class="text-center py-12">
-        <p style="color: #d4d4d4;">No hay planes disponibles en este momento.</p>
-      </div>
-    ) : (
-      <PricingCards planes={planes} />
-    )}
-  </div>
-</section>
-
 <style>
-  .pricing-pattern {
-    background-image: url('data:image/svg+xml,<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g fill="%23e04a36" fill-opacity="0.08"><path d="M40 40L20 20h40v40z"/></g></svg>');
-  }
-  
   .pricing-card {
     position: relative;
     background: #1a1a1a;
@@ -155,7 +109,7 @@ try {
     flex-shrink: 0;
     margin-top: 0.125rem;
   }
-  
+
   .cta-basic, .cta-enterprise {
     width: 100%;
     padding: 1rem 1.5rem;
@@ -217,76 +171,56 @@ try {
   }
 </style>
 
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  
-  gsap.registerPlugin(ScrollTrigger);
-  
-  // Inicializar animaciones cuando el DOM esté listo
-  document.addEventListener('DOMContentLoaded', () => {
-    gsap.fromTo(".pricing-card", {
-      y: 40,
-      opacity: 0
-    }, {
-      y: 0,
-      opacity: 1,
-      duration: 0.6,
-      ease: "power2.out",
-      stagger: 0.15,
-      scrollTrigger: {
-        trigger: ".pricing-card",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
+<div id="planes-grid" class="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+  {planes.map((plan: any) => {
+    const isFeatured = plan.name.toLowerCase().includes('pro') || plan.name.toLowerCase().includes('premium');
+    const isEnterprise = plan.name.toLowerCase().includes('enterprise');
+    const ctaClass = isEnterprise ? 'cta-enterprise' : (isFeatured ? 'cta-pro' : 'cta-basic');
+    const ctaText = 'Empezar ahora';
+    
+    return (
+      <div class={`pricing-card ${isFeatured ? 'pricing-card-featured' : ''} group`}>
+        {isFeatured && <div class="featured-badge">Más Popular</div>}
+        
+        <div class="pricing-header" style={`margin-top: ${isFeatured ? '2.5rem' : '0'};`}>
+          <div 
+            class="plan-badge" 
+            style={`background-color: transparent; border-color: ${isFeatured ? '#fe6b24' : '#3a3a3a'}; color: ${isFeatured ? '#fe6b24' : '#d4d4d4'};`}
+          >
+            {plan.name}
+          </div>
+          <div class="plan-price">
+            <span class="price-currency" style="color: #a3a3a3;">$</span>
+            <span class="price-amount" style="color: #ffffff;">{Math.floor(plan.price)}</span>
+            <span class="price-period" style="color: #a3a3a3;">/mes</span>
+          </div>
+          <p class="plan-description">{plan.description}</p>
+        </div>
+        
+        <div class="pricing-features">
+          <ul>
+            {plan.features.map((feature: string) => (
+              <li class="feature-item">
+                <svg class="feature-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 13L9 17L19 7" stroke="#fe6b24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div class="pricing-cta">
+          <button 
+            class={ctaClass} 
+            onclick={`window.openRegisterModal('${plan.id}', '${plan.name}')`}
+          >
+            {ctaText}
+          </button>
+        </div>
+      </div>
+    );
+  })}
+</div>
 
-    gsap.fromTo(".pricing-card-featured", {
-      scale: 0.95
-    }, {
-      scale: 1.02,
-      duration: 0.6,
-      ease: "power2.out",
-      delay: 0.3,
-      scrollTrigger: {
-        trigger: ".pricing-card-featured",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
 
-    gsap.fromTo(".feature-check", {
-      scale: 0,
-      opacity: 0
-    }, {
-      scale: 1,
-      opacity: 1,
-      duration: 0.4,
-      ease: "back.out(1.7)",
-      stagger: 0.05,
-      scrollTrigger: {
-        trigger: ".pricing-features",
-        start: "top 90%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    document.querySelectorAll('.cta-basic, .cta-pro, .cta-enterprise').forEach(button => {
-      button.addEventListener('mouseenter', () => {
-        gsap.to(button, {
-          scale: 1.02,
-          duration: 0.2,
-          ease: "power2.out"
-        });
-      });
-      
-      button.addEventListener('mouseleave', () => {
-        gsap.to(button, {
-          scale: 1,
-          duration: 0.2,
-          ease: "power2.out"
-        });
-      });
-    });
-  });
-</script>

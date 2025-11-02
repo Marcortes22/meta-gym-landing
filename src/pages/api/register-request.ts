@@ -1,20 +1,32 @@
 import type { APIRoute } from 'astro';
-import { crearSolicitudRegistro, verificarSolicitudExistente, verificarTenantNameExistente } from '../../utils/supabase';
+import { crearSolicitudRegistro } from '../../utils/firebase';
 import { sendWelcomeEmail } from '../../utils/email';
+
+export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
-    const name = formData.get('name') as string;
+    
+    // Campos del formulario
+    const adminName = formData.get('admin_name') as string;
+    const adminSurname1 = formData.get('admin_surname1') as string;
+    const adminSurname2 = formData.get('admin_surname2') as string;
+    const adminPhone = formData.get('admin_phone') as string;
     const email = formData.get('email') as string;
-    const tenantName = formData.get('tenant_name') as string;
+    const companyName = formData.get('company_name') as string;
+    const gymName = formData.get('gym_name') as string;
+    const gymPhone = formData.get('gym_phone') as string;
+    const gymAddress = formData.get('gym_address') as string;
+    const requestedPlan = formData.get('requested_plan') as string;
+    const name = formData.get('name') as string || adminName; // Para compatibilidad
 
     // Validaciones básicas
-    if (!name || !email || !tenantName) {
+    if (!adminName || !adminSurname1 || !email || !companyName || !gymName || !requestedPlan) {
       return new Response(
         JSON.stringify({ 
           success: false, 
-          message: 'Nombre, email y nombre del gimnasio son requeridos' 
+          message: 'Todos los campos marcados con * son requeridos' 
         }), 
         { 
           status: 400,
@@ -38,12 +50,12 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validar longitud del nombre del gimnasio
-    if (tenantName.trim().length < 2) {
+    // Validar teléfonos
+    if (!adminPhone || !gymPhone) {
       return new Response(
         JSON.stringify({ 
           success: false, 
-          message: 'El nombre del gimnasio debe tener al menos 2 caracteres' 
+          message: 'Los teléfonos son requeridos' 
         }), 
         { 
           status: 400,
@@ -52,38 +64,20 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Verificar si ya existe una solicitud con este email
-    const solicitudExiste = await verificarSolicitudExistente(email);
-    if (solicitudExiste) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          message: 'Ya existe una solicitud con este email' 
-        }), 
-        { 
-          status: 409,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Verificar si ya existe una solicitud con este nombre de gimnasio
-    const tenantNameExiste = await verificarTenantNameExistente(tenantName);
-    if (tenantNameExiste) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          message: 'Ya existe un gimnasio registrado con ese nombre. Por favor elige otro nombre.' 
-        }), 
-        { 
-          status: 409,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Crear la solicitud de registro
-    const resultado = await crearSolicitudRegistro(name, email, tenantName);
+    // Crear la solicitud de registro (incluye verificaciones internas)
+    const resultado = await crearSolicitudRegistro({
+      admin_name: adminName,
+      admin_surname1: adminSurname1,
+      admin_surname2: adminSurname2 || '',
+      admin_phone: adminPhone,
+      email: email,
+      company_name: companyName,
+      gym_name: gymName,
+      gym_phone: gymPhone,
+      gym_address: gymAddress,
+      requested_plan: requestedPlan,
+      name: name
+    });
     
     if (!resultado.success) {
       return new Response(
@@ -92,23 +86,21 @@ export const POST: APIRoute = async ({ request }) => {
           message: resultado.error || 'Error al crear la solicitud' 
         }), 
         { 
-          status: 500,
+          status: resultado.error?.includes('ya está') ? 409 : 500,
           headers: { 'Content-Type': 'application/json' }
         }
       );
     }
 
-    // Si la base de datos fue exitosa, intentar enviar email de bienvenida
+    // Si Firebase fue exitoso, intentar enviar email de bienvenida
     try {
       const emailResult = await sendWelcomeEmail(email, name);
       
       if (emailResult.success) {
-        console.log('Email de bienvenida enviado exitosamente');
         return new Response(
           JSON.stringify({ 
             success: true, 
-            message: '¡Solicitud recibida! Te enviamos un email con los próximos pasos.',
-            data: resultado.data
+            message: '¡Solicitud recibida! Te enviamos un email con los próximos pasos.'
           }), 
           { 
             status: 201,
@@ -117,12 +109,11 @@ export const POST: APIRoute = async ({ request }) => {
         );
       } else {
         console.error('Error enviando email de bienvenida:', emailResult.error);
-        // Aún consideramos exitoso si se guardó en la BD
+        // Aún consideramos exitoso si se guardó en Firebase
         return new Response(
           JSON.stringify({ 
             success: true, 
-            message: 'Solicitud creada exitosamente. Te contactaremos pronto.',
-            data: resultado.data
+            message: 'Solicitud creada exitosamente. Te contactaremos pronto.'
           }), 
           { 
             status: 201,
@@ -132,12 +123,11 @@ export const POST: APIRoute = async ({ request }) => {
       }
     } catch (emailError) {
       console.error('Error en servicio de email:', emailError);
-      // Si falla el email, aún retornamos éxito porque la BD fue exitosa
+      // Si falla el email, aún retornamos éxito porque Firebase fue exitoso
       return new Response(
         JSON.stringify({ 
           success: true, 
-          message: 'Solicitud creada exitosamente. Te contactaremos pronto.',
-          data: resultado.data
+          message: 'Solicitud creada exitosamente. Te contactaremos pronto.'
         }), 
         { 
           status: 201,
@@ -145,7 +135,6 @@ export const POST: APIRoute = async ({ request }) => {
         }
       );
     }
-
   } catch (error) {
     console.error('Error en /api/register-request:', error);
     
