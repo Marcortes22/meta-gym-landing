@@ -1,5 +1,4 @@
 ---
-// src/components/layout/Footer.astro
 ---
 
 <footer class="relative py-20 overflow-hidden" style="background-color: #0e0e10;">
@@ -81,7 +80,6 @@
         </ul>
       </div>
 
-      <!-- Columna 2: Navegación Rápida -->
       <div>
         <h4 class="text-lg font-semibold mb-6" style="color: #fefefe;">Navegación</h4>
         <ul class="space-y-4">
@@ -229,7 +227,6 @@
       }
     });
 
-    // Hover animations para social links
     document.querySelectorAll('.social-link').forEach(link => {
       link.addEventListener('mouseenter', () => {
         gsap.to(link, {

@@ -7,8 +7,6 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
-    
-    // Campos del formulario
     const adminName = formData.get('admin_name') as string;
     const adminSurname1 = formData.get('admin_surname1') as string;
     const adminSurname2 = formData.get('admin_surname2') as string;
@@ -19,9 +17,8 @@ export const POST: APIRoute = async ({ request }) => {
     const gymPhone = formData.get('gym_phone') as string;
     const gymAddress = formData.get('gym_address') as string;
     const requestedPlan = formData.get('requested_plan') as string;
-    const name = formData.get('name') as string || adminName; // Para compatibilidad
+      const name = formData.get('name') as string || adminName;
 
-    // Validaciones básicas
     if (!adminName || !adminSurname1 || !email || !companyName || !gymName || !requestedPlan) {
       return new Response(
         JSON.stringify({ 
@@ -35,7 +32,19 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validar formato de email
+    if (!adminPhone || !gymPhone || !gymAddress) {
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: 'Todos los campos requeridos deben estar completos' 
+        }), 
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
@@ -50,21 +59,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validar teléfonos
-    if (!adminPhone || !gymPhone) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          message: 'Los teléfonos son requeridos' 
-        }), 
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Crear la solicitud de registro (incluye verificaciones internas)
     const resultado = await crearSolicitudRegistro({
       admin_name: adminName,
       admin_surname1: adminSurname1,
@@ -92,7 +86,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Si Firebase fue exitoso, intentar enviar email de bienvenida
     try {
       const emailResult = await sendWelcomeEmail(email, name);
       
@@ -109,7 +102,6 @@ export const POST: APIRoute = async ({ request }) => {
         );
       } else {
         console.error('Error enviando email de bienvenida:', emailResult.error);
-        // Aún consideramos exitoso si se guardó en Firebase
         return new Response(
           JSON.stringify({ 
             success: true, 
@@ -123,7 +115,6 @@ export const POST: APIRoute = async ({ request }) => {
       }
     } catch (emailError) {
       console.error('Error en servicio de email:', emailError);
-      // Si falla el email, aún retornamos éxito porque Firebase fue exitoso
       return new Response(
         JSON.stringify({ 
           success: true, 

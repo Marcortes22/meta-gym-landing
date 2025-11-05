@@ -22,7 +22,6 @@ export default function RegisterModal({ isOpen, onClose, planId, planName }: Reg
     gym_address: '',
   });
 
-  // Animar entrada del modal
   useEffect(() => {
     if (isOpen) {
       const modal = document.getElementById('register-modal-react');
@@ -132,7 +131,6 @@ export default function RegisterModal({ isOpen, onClose, planId, planName }: Reg
     >
       <div className="modal-container">
         <div className="modal-content">
-          {/* Header */}
           <div className="modal-header">
             <h3 className="modal-title">
               Solicitar Plan <span id="modal-plan-name">{planName}</span>
@@ -149,9 +147,7 @@ export default function RegisterModal({ isOpen, onClose, planId, planName }: Reg
             </button>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="modal-form">
-            {/* Información del Administrador */}
             <div className="form-section">
               <h4 className="section-title">Información del Administrador</h4>
 
@@ -229,7 +225,6 @@ export default function RegisterModal({ isOpen, onClose, planId, planName }: Reg
               </div>
             </div>
 
-            {/* Información del Gimnasio */}
             <div className="form-section">
               <h4 className="section-title">Información del Gimnasio</h4>
 
@@ -292,7 +287,6 @@ export default function RegisterModal({ isOpen, onClose, planId, planName }: Reg
               </div>
             </div>
 
-            {/* Submit Button */}
             <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
@@ -313,7 +307,6 @@ export default function RegisterModal({ isOpen, onClose, planId, planName }: Reg
   );
 }
 
-// Función para mostrar mensajes
 function showMessage(message: string, type: 'success' | 'error') {
   const existingMessage = document.querySelector('.notification-message');
   if (existingMessage) {

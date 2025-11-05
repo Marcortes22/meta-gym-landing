@@ -7,7 +7,6 @@ export default function ModalManager() {
   const [planName, setPlanName] = useState('');
 
   useEffect(() => {
-    // Exponer función global para abrir el modal
     (window as any).openRegisterModal = (id: string, name: string) => {
       setPlanId(id);
       setPlanName(name);

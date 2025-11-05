@@ -4,8 +4,6 @@ import { sendContactFormEmail } from '../../utils/email';
 export const POST: APIRoute = async ({ request }) => {
   try {
     const { name, email, message, phone } = await request.json();
-    
-    // Validaciones
     if (!name || name.trim().length < 2) {
       return new Response(
         JSON.stringify({ 
@@ -45,7 +43,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validación del email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
@@ -60,7 +57,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
     
-    // Enviar email usando Resend
     const result = await sendContactFormEmail(
       name.trim(), 
       email.trim(), 

@@ -20,35 +20,24 @@ const { title = "Meta Gym - Sistema de Gestión para Gimnasios" } = Astro.props;
   <meta name="author" content="Meta Gym" />
   <meta name="language" content="es-ES" />
   <meta name="robots" content="index, follow" />
-  
-  <!-- Translation helpers -->
   <meta name="format-detection" content="telephone=no" />
   <link rel="alternate" hreflang="es" href="/" />
-  
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content="Software todo-en-uno para gestionar tu gimnasio como un profesional. Aumenta retención, elimina horas administrativas y optimiza tu operación." />
   <meta property="og:locale" content="es_ES" />
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content="Software todo-en-uno para gestionar tu gimnasio como un profesional." />
-  
+
   <meta name="generator" content={Astro.generator} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/public/MetaGym.png" />
 </head>
 <body>
   <div id="app" lang="es-ES">
     <slot />
   </div>
-  
-  <!-- Modal de Registro -->
+ 
   <RegisterModalWrapper />
   
-  <!-- Structured Data for better content recognition -->
-  <script type="application/ld+json">
+  <script type="application/ld+json" is:inline>
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

@@ -7,12 +7,9 @@ import {
   query, 
   where, 
   getDocs,
-  Timestamp,
-  doc,
-  getDoc 
+  Timestamp
 } from "firebase/firestore";
 import type { 
-  RegisterRequest, 
   RegisterRequestResponse,
   SaasPlan 
 } from '../types/database';
@@ -42,18 +39,7 @@ if (typeof window !== 'undefined') {
 
 export { analytics };
 
-// Función para normalizar el tenant_name
-export function normalizeTenantName(name: string): string {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, '') // Remover caracteres especiales excepto espacios y guiones
-    .replace(/\s+/g, '-') // Reemplazar espacios con guiones
-    .replace(/-+/g, '-') // Reemplazar múltiples guiones con uno solo
-    .replace(/^-|-$/g, ''); // Remover guiones al inicio y final
-}
 
-// Función para crear una solicitud de registro
 export async function crearSolicitudRegistro(
   data: {
     admin_name: string;
@@ -66,11 +52,10 @@ export async function crearSolicitudRegistro(
     gym_phone: string;
     gym_address: string;
     requested_plan: string;
-    name?: string; // Para compatibilidad
+    name?: string; 
   }
 ): Promise<RegisterRequestResponse> {
   try {
-    // Verificar si el email ya existe
     const emailExists = await verificarEmailRegistroExistente(data.email);
     if (emailExists) {
       return {
@@ -80,7 +65,7 @@ export async function crearSolicitudRegistro(
       };
     }
 
-    // Crear el documento en Firestore
+  
     const docRef = await addDoc(collection(db, 'register_requests'), {
       admin_name: data.admin_name.trim(),
       admin_surname1: data.admin_surname1.trim(),
@@ -92,7 +77,7 @@ export async function crearSolicitudRegistro(
       gym_phone: data.gym_phone.trim(),
       gym_address: data.gym_address.trim(),
       requested_plan: data.requested_plan,
-      name: data.name?.trim() || data.admin_name.trim(), // Para compatibilidad
+      name: data.name?.trim() || data.admin_name.trim(), 
       state: 'pending',
       date: Timestamp.now(),
       createdAt: Timestamp.now()
@@ -196,34 +181,5 @@ export async function obtenerPlanes(): Promise<SaasPlan[]> {
   } catch (error) {
     console.error('Error obteniendo planes de Firebase:', error);
     return [];
-  }
-}
-
-// Función para obtener un plan específico
-export async function obtenerPlanPorId(planId: string): Promise<SaasPlan | null> {
-  try {
-    const planDoc = await getDoc(doc(db, 'saas_plans', planId));
-    
-    if (!planDoc.exists()) {
-      return null;
-    }
-    
-    const data = planDoc.data();
-    return {
-      id: planDoc.id,
-      name: data.name,
-      description: data.description,
-      price: data.price,
-      max_clients: data.max_clients,
-      max_gyms: data.max_gyms,
-      features: data.features || [],
-      is_active: data.is_active,
-      platform_config_id: data.platform_config_id,
-      created_at: data.createdAt?.toDate?.()?.toISOString() || new Date().toISOString()
-    };
-    
-  } catch (error) {
-    console.error('Error obteniendo plan por ID:', error);
-    return null;
   }
 }

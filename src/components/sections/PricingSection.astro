@@ -2,7 +2,6 @@
 import { obtenerPlanes } from '../../utils/firebase';
 import PricingCards from './PricingCards.astro';
 
-// Obtener planes en el servidor
 let planes: any[] = [];
 let error = false;
 
@@ -223,7 +222,6 @@ try {
   
   gsap.registerPlugin(ScrollTrigger);
   
-  // Inicializar animaciones cuando el DOM esté listo
   document.addEventListener('DOMContentLoaded', () => {
     gsap.fromTo(".pricing-card", {
       y: 40,

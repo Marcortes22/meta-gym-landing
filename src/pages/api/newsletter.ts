@@ -1,11 +1,10 @@
 import type { APIRoute } from 'astro';
 import { addToNewsletter } from '../../utils/email';
 
-export const prerender = false; // Importante: esto marca la página como server-side
+export const prerender = false; 
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Validar Content-Type
     const contentType = request.headers.get('content-type');
     if (!contentType || !contentType.includes('application/json')) {
       return new Response(
@@ -20,10 +19,8 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Obtener datos del body
     const body = await request.text();
     
-    // Validar que el body no esté vacío
     if (!body.trim()) {
       return new Response(
         JSON.stringify({ 
@@ -54,7 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
     
-    // Validar email
+    
     if (!email || typeof email !== 'string') {
       return new Response(
         JSON.stringify({ 
@@ -68,7 +65,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validación básica de formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
@@ -83,7 +79,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
     
-    // Guardar en Firebase y enviar email de confirmación
     const { agregarEmailNewsletter } = await import('../../utils/firebase');
     const dbResult = await agregarEmailNewsletter(email);
     
@@ -101,7 +96,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Enviar email de confirmación usando Resend
     const result = await addToNewsletter(email);
     
     if (result.success) {
@@ -146,7 +140,6 @@ export const POST: APIRoute = async ({ request }) => {
   }
 };
 
-// Método OPTIONS para CORS (si es necesario)
 export const OPTIONS: APIRoute = async () => {
   return new Response(null, {
     status: 200,

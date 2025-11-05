@@ -1,6 +1,5 @@
 
 ---
-// HeroSection component
 ---
 
 <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" style="background-color: #0e0e10;">
@@ -223,8 +222,6 @@
       });
     });
     
-
-    // Animación sutil para la imagen principal
     gsap.to("#main-image", {
       y: -4,
       duration: 3,
@@ -245,7 +242,6 @@
     });
   });
 
-  // Función para hacer scroll al newsletter
   (window as any).scrollToNewsletter = function() {
     const newsletter = document.querySelector('#newsletter');
     
@@ -255,14 +251,12 @@
         block: 'center'
       });
       
-      // Añadir un pequeño efecto visual al formulario
       const input = newsletter.querySelector('input[name="name"]') as HTMLInputElement;
       if (input) {
         setTimeout(() => {
           try {
             input.focus();
           } catch (e) {
-            // Silenciar error si no se puede enfocar
           }
         }, 800);
       }
