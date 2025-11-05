@@ -25,13 +25,8 @@ const firebaseConfig = {
   measurementId: import.meta.env.FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firestore
 export const db = getFirestore(app);
-
-// Initialize Analytics (solo en el cliente)
 let analytics;
 if (typeof window !== 'undefined') {
   analytics = getAnalytics(app);
@@ -115,7 +110,6 @@ export async function crearSolicitudRegistro(
   }
 }
 
-// Función para verificar email existente
 export async function verificarEmailRegistroExistente(email: string): Promise<boolean> {
   try {
     const q = query(
@@ -132,7 +126,6 @@ export async function verificarEmailRegistroExistente(email: string): Promise<bo
 
 
 
-// Función para agregar email al newsletter
 export async function agregarEmailNewsletter(email: string): Promise<{ data: any | null; error: any }> {
   try {
     const docRef = await addDoc(collection(db, 'newsletter_subscribers'), {
@@ -148,7 +141,6 @@ export async function agregarEmailNewsletter(email: string): Promise<{ data: any
   }
 }
 
-// Función para obtener planes desde Firebase
 export async function obtenerPlanes(): Promise<SaasPlan[]> {
   try {
     const planesCollection = collection(db, 'saas_plans');
@@ -173,7 +165,6 @@ export async function obtenerPlanes(): Promise<SaasPlan[]> {
       });
     });
     
-    // Ordenar por precio
     planes.sort((a, b) => a.price - b.price);
     
     return planes;
