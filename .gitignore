@@ -1,6 +1,7 @@
 # Build output
 dist/
 build/
+undefined/
 
 # Generated types
 .astro/
@@ -128,6 +129,9 @@ Thumbs.db
 
 # Logs and databases
 *.log
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
 *.sql
 *.sqlite
 *.sqlite3
